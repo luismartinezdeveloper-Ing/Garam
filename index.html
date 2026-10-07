@@ -33,27 +33,6 @@
           }
         } catch (e) {}
 
-        // Suppress benign WebSocket / Vite HMR disconnect noise in proxy environment
-        window.addEventListener('unhandledrejection', function(event) {
-          var reason = event && (event.reason || '');
-          var msg = String((reason && reason.message) || reason || '');
-          if (msg.indexOf('WebSocket') !== -1 || msg.indexOf('vite') !== -1) {
-            event.preventDefault();
-            if (typeof event.stopImmediatePropagation === 'function') {
-              event.stopImmediatePropagation();
-            }
-          }
-        });
-
-        window.addEventListener('error', function(event) {
-          var msg = String((event && event.message) || '');
-          if (msg.indexOf('WebSocket') !== -1 || msg.indexOf('vite') !== -1) {
-            event.preventDefault();
-            if (typeof event.stopImmediatePropagation === 'function') {
-              event.stopImmediatePropagation();
-            }
-          }
-        });
       })();
     </script>
     <title>GARAM Constructores | Portafolio de Arquitectura 2026</title>

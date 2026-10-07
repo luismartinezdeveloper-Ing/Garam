@@ -342,7 +342,7 @@ async function setupServer() {
     const vite = await createViteServer({
       server: {
         middlewareMode: true,
-        hmr: false,
+        port: PORT,
         ws: { server: httpServer },
       },
       appType: 'custom',

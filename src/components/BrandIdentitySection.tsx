@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Palette, Check, Copy } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { FadeIn } from './MotionReveal';
-import { LogoConcepts } from './LogoConcepts';
+import { LogoDigitalization } from './LogoDigitalization';
 
 export const BrandIdentitySection: React.FC = () => {
   const [copiedColor, setCopiedColor] = useState<string | null>(null);
@@ -18,9 +18,9 @@ export const BrandIdentitySection: React.FC = () => {
     },
     {
       name: 'Índigo GARAM',
-      hex: '#25225a',
-      rgb: '37, 34, 90',
-      role: 'Color original del logotipo, títulos y acciones principales.',
+      hex: '#353261',
+      rgb: '53, 50, 97',
+      role: 'Color original del logotipo digitalizado.',
       textColor: '#ffffff',
     },
     {
@@ -55,26 +55,26 @@ export const BrandIdentitySection: React.FC = () => {
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-brand-stone pb-8">
             <div className="space-y-3 max-w-3xl">
               <div className="text-xs font-semibold text-brand-muted tracking-widest uppercase">
-                04 · EXPLORACIÓN TIPOGRÁFICA
+                04 · DIGITALIZACIÓN DEL LOGO
               </div>
               <h2 className="font-editorial text-4xl font-normal leading-tight tracking-tight text-brand-ink sm:text-6xl">
-                Una evolución tipográfica.<br />
+                El original,<br />
                 <span className="font-normal text-brand-muted">
-                  La misma identidad GARAM.
+                  listo para la web.
                 </span>
               </h2>
               <p className="max-w-2xl text-sm leading-6 text-brand-muted">
-                El símbolo arquitectónico, el índigo y la composición se conservan. Solo exploramos familia, peso y espaciado tipográfico.
+                Redibujado en SVG, respetando las letras geométricas, el símbolo arquitectónico y el índigo del logo que elegiste.
               </p>
             </div>
 
             <div className="text-xs font-semibold tracking-wide text-brand-ink">
-              Rutas conceptuales · 2026
+              SVG · Fondo transparente · Escalable
             </div>
           </div>
         </FadeIn>
 
-        <LogoConcepts />
+        <LogoDigitalization />
 
         {/* Color Palette Breakdown Cards */}
         <FadeIn delay={0.2} direction="up">

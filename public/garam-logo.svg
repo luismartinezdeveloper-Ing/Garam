@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="423" height="153" viewBox="0 0 423 153" color="#353261" role="img" aria-labelledby="garam-title garam-description">
+  <title id="garam-title">GARAM CONSTRUCTORES</title>
+  <desc id="garam-description">Logotipo geométrico de GARAM Constructores con símbolo arquitectónico y fondo transparente.</desc>
+  <g id="garam-logo" fill="currentColor">
+    <g id="garam-mark">
+      <path d="M79 35H64C44.5 35 30 50 30 70C30 90 43 104 64 104H92V63H61V75H78V92H64C50 92 42 84 42 70C42 56 50 47 64 47H79V35Z" />
+      <path fill-rule="evenodd" d="M127 33L177 122H158V104L146 80H118L107 104H93L127 33ZM127 52L138 75H116L127 52Z" />
+      <path fill-rule="evenodd" d="M164 35H184C201 35 211 44 211 59C211 73 201 81 184 82L226 104H208L177 82V104H164V35ZM176 47V71H184C194 71 200 67 200 59C200 51 194 47 184 47H176Z" />
+      <path fill-rule="evenodd" d="M127 33L177 122H158V104L146 80H118L107 104H93L127 33ZM127 52L138 75H116L127 52Z" transform="translate(130 0)" />
+      <path d="M294 33H308L331 78L354 33H367V104H353V65L334 100H327L308 65V104H294V33Z" />
+      <g fill="none" stroke="currentColor" stroke-linecap="square" stroke-linejoin="miter" stroke-width="2.5">
+        <path d="M379 98V42L393 32L412 42V115M393 32V115M365 115H412" />
+      </g>
+    </g>
+    <text x="262" y="140" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="400" letter-spacing="5.6">CONSTRUCTORES</text>
+  </g>
+</svg>

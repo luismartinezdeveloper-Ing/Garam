@@ -55,16 +55,16 @@ export const BrandIdentitySection: React.FC = () => {
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-brand-stone pb-8">
             <div className="space-y-3 max-w-3xl">
               <div className="text-xs font-semibold text-brand-muted tracking-widest uppercase">
-                04 · EXPLORACIÓN DEL LOGO
+                04 · EXPLORACIÓN TIPOGRÁFICA
               </div>
               <h2 className="font-editorial text-4xl font-normal leading-tight tracking-tight text-brand-ink sm:text-6xl">
-                Tres propuestas para GARAM.<br />
+                Una evolución tipográfica.<br />
                 <span className="font-normal text-brand-muted">
-                  Una esencia, tres lenguajes visuales.
+                  La misma identidad GARAM.
                 </span>
               </h2>
               <p className="max-w-2xl text-sm leading-6 text-brand-muted">
-                Monograma, tipografía y sello compacto: cada ruta conserva el índigo GARAM.
+                El símbolo arquitectónico, el índigo y la composición se conservan. Solo exploramos familia, peso y espaciado tipográfico.
               </p>
             </div>
 

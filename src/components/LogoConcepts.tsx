@@ -1,121 +1,137 @@
-import { GaramLogo } from './GaramLogo';
+const originalLogoUrl = 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/logogaram-BHc8IVNECjd3kvWeAp5tFxSpWUBOer.jpeg';
 
-const ArchitecturalLockup = () => (
-  <div className="flex items-center gap-4" role="img" aria-label="Propuesta arquitectónica: monograma GA geométrico y nombre GARAM">
-    <svg className="size-[76px] shrink-0" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <path d="M17 17V79H79" stroke="#e6ded1" strokeWidth="1" />
-      <path d="M55 25H31V70H58V55H47" stroke="#25225a" strokeWidth="3" strokeLinecap="square" strokeLinejoin="miter" />
-      <path d="M49 70L68 25L87 70M57 51H79" stroke="#25225a" strokeWidth="3" strokeLinecap="square" strokeLinejoin="miter" />
-      <path d="M68 25H87" stroke="#8b5e3c" strokeWidth="3" />
-    </svg>
-    <div>
-      <span className="block text-lg font-semibold tracking-[0.2em] text-brand-ink">GARAM</span>
-      <span className="mt-2 block h-px w-8 bg-brand-copper" />
-      <span className="mt-2 block text-[8px] font-semibold tracking-[0.28em] text-brand-ink">CONSTRUCTORES</span>
-    </div>
-  </div>
-);
-
-const EditorialWordmark = () => (
-  <div className="text-center" role="img" aria-label="Propuesta tipográfica: GARAM en serif editorial con CONSTRUCTORES">
-    <span className="block font-editorial text-[2.75rem] leading-none tracking-[0.1em] text-brand-ink sm:text-5xl">GARAM</span>
-    <span className="mt-5 flex items-center justify-center gap-3">
-      <span className="h-px w-7 bg-brand-copper" />
-      <span className="text-[9px] font-semibold tracking-[0.3em] text-brand-ink">CONSTRUCTORES</span>
-      <span className="h-px w-7 bg-brand-copper" />
-    </span>
-  </div>
-);
-
-const EssentialLockup = () => (
-  <div className="flex items-center gap-4" role="img" aria-label="Propuesta minimalista: inicial G en un módulo cuadrado junto al nombre GARAM">
-    <span className="relative grid size-[68px] shrink-0 place-items-center bg-brand-ink text-white">
-      <span className="font-editorial text-[2.7rem] leading-none">G</span>
-      <span className="absolute bottom-3 right-3 size-2 bg-brand-copper" />
-    </span>
-    <span>
-      <span className="block text-lg font-semibold tracking-[0.2em] text-brand-ink">GARAM</span>
-      <span className="mt-1 block text-[8px] font-semibold tracking-[0.28em] text-brand-muted">CONSTRUCTORES</span>
-    </span>
-  </div>
-);
-
-const concepts = [
+const typographyOptions = [
   {
     number: '01',
-    direction: 'ARQUITECTÓNICA',
-    title: 'Monograma estructural',
-    description: 'Integra la G y la A en trazos de plano. Sustituye las torres por un símbolo propio y reconocible.',
-    application: 'Fachadas, placas y señalética',
+    direction: 'MÁS FIEL AL ORIGINAL',
+    title: 'Refinamiento fiel',
+    description: 'Conserva la contundencia del logo y afina el interletraje para una lectura más uniforme.',
+    family: '"Plus Jakarta Sans", sans-serif',
+    familyName: 'Plus Jakarta Sans',
+    letterSpacing: '-0.06em',
+    subtitleSpacing: '0.24em',
     recommended: true,
-    logo: <ArchitecturalLockup />,
   },
   {
     number: '02',
-    direction: 'EDITORIAL',
-    title: 'Wordmark tipográfico',
-    description: 'Hace que GARAM sea el protagonista: más carácter en las letras, sin sumar un ícono adicional.',
-    application: 'Presentaciones y publicaciones',
+    direction: 'GEOMÉTRICA',
+    title: 'Geometría rotunda',
+    description: 'Una sans geométrica de trazo firme, cercana al carácter arquitectónico de las letras actuales.',
+    family: 'Montserrat, sans-serif',
+    familyName: 'Montserrat',
+    letterSpacing: '-0.065em',
+    subtitleSpacing: '0.26em',
     recommended: false,
-    logo: <EditorialWordmark />,
   },
   {
     number: '03',
-    direction: 'MINIMALISTA',
-    title: 'Sello esencial',
-    description: 'Reduce la identidad a una G dentro de un módulo simple, acompañado por el nombre completo.',
-    application: 'Favicon, avatar y bordado',
+    direction: 'LECTURA EQUILIBRADA',
+    title: 'Ajuste contemporáneo',
+    description: 'Abre ligeramente el ritmo de lectura sin cambiar el peso ni la presencia de GARAM.',
+    family: 'Manrope, sans-serif',
+    familyName: 'Manrope',
+    letterSpacing: '-0.045em',
+    subtitleSpacing: '0.22em',
     recommended: false,
-    logo: <EssentialLockup />,
   },
 ];
 
 export const LogoConcepts = () => (
-  <div className="space-y-8">
+  <div className="flex flex-col gap-10">
+    <div className="grid items-stretch gap-5 lg:grid-cols-[minmax(0,1.15fr)_minmax(280px,0.85fr)]">
+      <figure className="min-w-0 overflow-hidden border border-brand-stone bg-white">
+        <figcaption className="flex flex-wrap items-center justify-between gap-2 border-b border-brand-stone px-5 py-3">
+          <div>
+            <p className="text-[10px] font-semibold tracking-[0.18em] text-brand-ink">ORIGINAL ADJUNTO</p>
+            <p className="mt-1 text-xs text-brand-muted">Referencia que se conserva intacta.</p>
+          </div>
+          <span className="border border-brand-stone px-2.5 py-1 text-[9px] font-semibold tracking-[0.12em] text-brand-muted">
+            GARAM CONSTRUCTORES
+          </span>
+        </figcaption>
+        <div className="flex min-h-[170px] items-center justify-center p-4 sm:min-h-[205px] sm:p-6">
+          <img
+            src={originalLogoUrl}
+            alt="Logotipo original de GARAM Constructores: letras geométricas en índigo, símbolo de edificio a la derecha y CONSTRUCTORES debajo."
+            width={423}
+            height={150}
+            loading="lazy"
+            decoding="async"
+            className="block h-auto w-full max-w-[423px]"
+          />
+        </div>
+      </figure>
+
+      <aside className="flex flex-col justify-center gap-6 border border-brand-stone bg-white p-5 sm:p-7">
+        <div>
+          <p className="text-[10px] font-semibold tracking-[0.18em] text-brand-muted">NO SE CAMBIA</p>
+          <ul className="mt-3 flex flex-col gap-2 text-sm leading-6 text-brand-ink">
+            <li>El símbolo arquitectónico del edificio.</li>
+            <li>El índigo y la composición horizontal.</li>
+            <li>La jerarquía y proporciones del conjunto.</li>
+          </ul>
+        </div>
+        <div className="border-t border-brand-stone pt-5">
+          <p className="text-[10px] font-semibold tracking-[0.18em] text-brand-copper">SÍ SE PUEDE AJUSTAR</p>
+          <p className="mt-3 text-sm leading-6 text-brand-muted">
+            Solo la familia, el peso y el espaciado de las letras de “GARAM” y “CONSTRUCTORES”.
+          </p>
+        </div>
+      </aside>
+    </div>
+
+    <div className="flex flex-col gap-2">
+      <p className="text-[10px] font-semibold tracking-[0.18em] text-brand-copper">TRES RUTAS TIPOGRÁFICAS</p>
+      <h3 className="font-editorial text-2xl leading-tight text-brand-ink sm:text-3xl">
+        Mismo logo. Solo cambia la letra.
+      </h3>
+      <p className="max-w-2xl text-sm leading-6 text-brand-muted">
+        Las muestras comparan tipografías sans geométricas y ajustes de espaciado; el símbolo, el color y la estructura permanecen fijos.
+      </p>
+    </div>
+
     <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
-      {concepts.map((concept) => (
-        <article key={concept.number} className="flex h-full flex-col overflow-hidden border border-brand-stone bg-white transition-colors hover:border-brand-ink/30">
-          <div className="flex items-center justify-between border-b border-brand-stone px-5 py-3">
-            <span className="font-mono text-[10px] tracking-[0.2em] text-brand-muted">{concept.number} / 03</span>
-            {concept.recommended ? (
-              <span className="bg-brand-paper px-2 py-1 text-[9px] font-semibold tracking-[0.12em] text-brand-copper">RECOMENDADA</span>
+      {typographyOptions.map((option) => (
+        <article key={option.number} className="flex h-full flex-col overflow-hidden border border-brand-stone bg-white transition-colors hover:border-brand-ink/30">
+          <div className="flex items-center justify-between gap-3 border-b border-brand-stone px-5 py-3">
+            <span className="font-mono text-[10px] tracking-[0.2em] text-brand-muted">{option.number} / 03</span>
+            {option.recommended ? (
+              <span className="bg-brand-paper px-2 py-1 text-[9px] font-semibold tracking-[0.12em] text-brand-copper">MÁS FIEL</span>
             ) : (
-              <span className="text-[9px] font-medium tracking-[0.12em] text-brand-muted">PROPUESTA</span>
+              <span className="text-[9px] font-medium tracking-[0.12em] text-brand-muted">VARIANTE TIPOGRÁFICA</span>
             )}
           </div>
 
-          <div className="flex min-h-[220px] items-center justify-center bg-brand-paper/70 px-4 py-8 sm:min-h-[240px]">
-            {concept.logo}
+          <div className="flex min-h-[190px] flex-col items-center justify-center bg-brand-paper px-4 py-8 text-center sm:min-h-[220px]">
+            <p
+              className="whitespace-nowrap text-[clamp(2.6rem,6vw,4rem)] leading-none text-brand-ink"
+              style={{ fontFamily: option.family, fontWeight: 700, letterSpacing: option.letterSpacing }}
+            >
+              GARAM
+            </p>
+            <p
+              className="mt-3 whitespace-nowrap text-[0.76rem] font-semibold text-brand-ink"
+              style={{ fontFamily: option.family, letterSpacing: option.subtitleSpacing }}
+            >
+              CONSTRUCTORES
+            </p>
           </div>
 
           <div className="flex flex-1 flex-col px-5 pb-5 pt-5 sm:px-6">
-            <p className="text-[10px] font-semibold tracking-[0.18em] text-brand-copper">{concept.direction}</p>
-            <h3 className="mt-2 font-editorial text-2xl leading-tight text-brand-ink">{concept.title}</h3>
-            <p className="mt-3 flex-1 text-sm leading-6 text-brand-muted">{concept.description}</p>
+            <p className="text-[10px] font-semibold tracking-[0.18em] text-brand-copper">{option.direction}</p>
+            <h4 className="mt-2 font-editorial text-2xl leading-tight text-brand-ink">{option.title}</h4>
+            <p className="mt-3 flex-1 text-sm leading-6 text-brand-muted">{option.description}</p>
             <div className="mt-5 border-t border-brand-stone pt-4">
-              <p className="text-[9px] font-semibold tracking-[0.14em] text-brand-muted">APLICACIÓN IDEAL</p>
-              <p className="mt-1 text-xs font-medium text-brand-ink">{concept.application}</p>
+              <p className="text-[9px] font-semibold tracking-[0.14em] text-brand-muted">FAMILIA TIPOGRÁFICA</p>
+              <p className="mt-1 text-xs font-medium text-brand-ink">{option.familyName} · Semibold</p>
             </div>
           </div>
         </article>
       ))}
     </div>
 
-    <div className="flex flex-col gap-4 border-y border-brand-stone py-5 sm:flex-row sm:items-center sm:justify-between">
-      <div className="flex items-center gap-4">
-        <div className="flex min-h-[64px] min-w-[172px] items-center justify-center border border-brand-stone bg-white px-3">
-          <GaramLogo variant="dark" size="md" showSubtitles />
-        </div>
-        <div>
-          <p className="text-[10px] font-semibold tracking-[0.16em] text-brand-ink">MARCA VIGENTE · REFERENCIA</p>
-          <p className="mt-1 max-w-xl text-xs leading-5 text-brand-muted">
-            Son rutas conceptuales para comparar; el logo actual y la cabecera del sitio permanecen sin cambios.
-          </p>
-        </div>
-      </div>
-      <span className="self-start bg-brand-stone/50 px-3 py-2 text-[9px] font-semibold tracking-[0.12em] text-brand-ink sm:self-center">
-        ESTUDIO CONCEPTUAL · 2026
-      </span>
-    </div>
+    <p className="border-y border-brand-stone py-4 text-xs leading-5 text-brand-muted">
+      Son muestras para comparar la tipografía; el logotipo vigente permanece intacto hasta que elijas una dirección.
+    </p>
   </div>
 );

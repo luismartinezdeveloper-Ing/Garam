@@ -1,0 +1,479 @@
+import React, { useState, useMemo } from 'react';
+import { PROJECTS } from '../data/portfolioData';
+import { Project } from '../types/portfolio';
+import { handleImageError } from '../utils/imageFallback';
+import {
+  Search,
+  Eye,
+  MapPin,
+  Maximize2,
+  X,
+  Layers,
+} from 'lucide-react';
+
+import { motion, AnimatePresence } from 'framer-motion';
+import { FadeIn } from './MotionReveal';
+
+interface ProjectsCatalogProps {
+  onSelectProject: (project: Project) => void;
+}
+
+export const ProjectsCatalog: React.FC<ProjectsCatalogProps> = ({
+  onSelectProject,
+}) => {
+  const [selectedCategory, setSelectedCategory] = useState<string>('Todos');
+  const [selectedStatus, setSelectedStatus] = useState<string>('Todos');
+  const [searchQuery, setSearchQuery] = useState<string>('');
+
+  // Per-card active photo preview map (project id -> photo idx)
+  const [cardPhotoIdx, setCardPhotoIdx] = useState<Record<string, number>>({});
+
+  const categories: string[] = [
+    'Todos',
+    'Residencial',
+    'Comercial',
+    'Corporativo',
+    'Salud / Especializada',
+    'Urbanismo',
+  ];
+
+  const statuses: string[] = ['Todos', 'Ejecutado', 'En ejecución', 'Por ejecutar'];
+
+  const filteredProjects = useMemo(() => {
+    return PROJECTS.filter((p) => {
+      const matchesCategory =
+        selectedCategory === 'Todos' || p.category === selectedCategory;
+      const matchesStatus =
+        selectedStatus === 'Todos' || p.status === selectedStatus;
+      const matchesSearch =
+        searchQuery.trim() === '' ||
+        p.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        p.location.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        p.slogan.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        p.memoria.toLowerCase().includes(searchQuery.toLowerCase());
+
+      return matchesCategory && matchesStatus && matchesSearch;
+    });
+  }, [selectedCategory, selectedStatus, searchQuery]);
+
+  return (
+    <section id="obras" className="py-20 sm:py-28 bg-[#f5f5f7] border-b border-[#e5e5ea] font-sans">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+        
+        {/* Section Header */}
+        <FadeIn direction="up">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-[#e5e5ea] pb-8">
+            <div className="space-y-3 max-w-3xl">
+              <div className="text-xs font-semibold text-[#6e6e73] tracking-widest uppercase flex items-center gap-2">
+                <span>03 · CATÁLOGO DE OBRAS</span>
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-600" />
+                <span className="text-[#25225a] font-bold">11 OBRAS EMBLEMÁTICAS</span>
+              </div>
+              <h2 className="text-3xl sm:text-5xl font-bold tracking-tight text-[#25225a]">
+                Arquitectura construida.<br />
+                <span className="text-[#6e6e73] font-normal">
+                  Fotografía real de estructura, espacialidad y acabados de lujo.
+                </span>
+              </h2>
+            </div>
+
+            <div className="text-xs font-semibold text-[#6e6e73]">
+              Mostrando {filteredProjects.length} de {PROJECTS.length} Obras
+            </div>
+          </div>
+        </FadeIn>
+
+        {/* Filter Controls Bar with Animated Segmented Layout Tabs */}
+        <FadeIn delay={0.1} direction="up">
+          <div className="bg-white rounded-3xl p-6 border border-[#e5e5ea] shadow-xs space-y-4">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+              
+              {/* Search Input */}
+              <div className="relative flex-1 max-w-md">
+                <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#86868b]" />
+                <input
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder="Buscar por obra, ubicación o tipología..."
+                  className="w-full pl-10 pr-9 py-2.5 bg-[#f5f5f7] rounded-full border border-transparent text-xs text-[#25225a] placeholder:text-[#86868b] focus:outline-none focus:border-[#25225a] focus:bg-white transition-all"
+                />
+                {searchQuery && (
+                  <button
+                    onClick={() => setSearchQuery('')}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-[#86868b] hover:text-[#25225a] p-0.5"
+                    aria-label="Limpiar búsqueda"
+                  >
+                    <X className="w-3.5 h-3.5" />
+                  </button>
+                )}
+              </div>
+
+              {/* Status Segmented Tabs */}
+              <div className="flex items-center gap-1 overflow-x-auto pb-1 md:pb-0 scrollbar-none">
+                <span className="text-xs text-[#86868b] mr-2 whitespace-nowrap">
+                  Estatus:
+                </span>
+                <div className="flex items-center p-1 bg-[#f5f5f7] rounded-full">
+                  {statuses.map((st) => {
+                    const isActive = selectedStatus === st;
+                    return (
+                      <button
+                        key={st}
+                        onClick={() => setSelectedStatus(st)}
+                        className={`relative px-3.5 py-1.5 rounded-full text-xs font-semibold transition-colors whitespace-nowrap cursor-pointer z-10 ${
+                          isActive ? 'text-white' : 'text-[#6e6e73] hover:text-[#25225a]'
+                        }`}
+                      >
+                        {isActive && (
+                          <motion.div
+                            layoutId="activeStatusIndicator"
+                            className="absolute inset-0 bg-[#25225a] rounded-full shadow-xs -z-10"
+                            transition={{ type: 'spring', stiffness: 450, damping: 35 }}
+                          />
+                        )}
+                        <span>{st}</span>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+            </div>
+
+            {/* Category Animated Segmented Tabs */}
+            <div className="flex items-center gap-2 overflow-x-auto pt-3 border-t border-[#e5e5ea] scrollbar-none">
+              <span className="text-xs text-[#86868b] mr-2 whitespace-nowrap">
+                Categoría:
+              </span>
+              <div className="flex items-center gap-1.5 p-1 bg-[#f5f5f7] rounded-full">
+                {categories.map((cat) => {
+                  const isActive = selectedCategory === cat;
+                  return (
+                    <button
+                      key={cat}
+                      onClick={() => setSelectedCategory(cat)}
+                      className={`relative px-4 py-1.5 rounded-full text-xs font-semibold transition-colors whitespace-nowrap cursor-pointer z-10 ${
+                        isActive ? 'text-white' : 'text-[#6e6e73] hover:text-[#25225a]'
+                      }`}
+                    >
+                      {isActive && (
+                        <motion.div
+                          layoutId="activeCategoryIndicator"
+                          className="absolute inset-0 bg-[#25225a] rounded-full shadow-xs -z-10"
+                          transition={{ type: 'spring', stiffness: 450, damping: 35 }}
+                        />
+                      )}
+                      <span>{cat}</span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        </FadeIn>
+
+        {/* Dynamic Editorial Projects Layout */}
+        <AnimatePresence mode="wait">
+          {filteredProjects.length === 0 ? (
+            <motion.div
+              key="empty"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0 }}
+              className="p-16 text-center bg-white rounded-3xl border border-[#e5e5ea] space-y-4"
+            >
+              <p className="text-sm text-[#6e6e73]">
+                No se encontraron proyectos con los criterios de búsqueda seleccionados.
+              </p>
+              <button
+                onClick={() => {
+                  setSelectedCategory('Todos');
+                  setSelectedStatus('Todos');
+                  setSearchQuery('');
+                }}
+                className="px-5 py-2.5 rounded-full bg-[#25225a] text-white text-xs font-semibold cursor-pointer"
+              >
+                Restablecer Filtros
+              </button>
+            </motion.div>
+          ) : (
+            <motion.div
+              key={`${selectedCategory}-${selectedStatus}-${searchQuery}`}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.3 }}
+              className="space-y-8"
+            >
+              {/* 1. Flagship Featured Project (First Item in Asymmetric Full-Width Banner) */}
+              {filteredProjects.length > 0 && (() => {
+                const flagship = filteredProjects[0];
+                const currentPhotoIdx = cardPhotoIdx[flagship.id] ?? 0;
+                const activeImgUrl = flagship.gallery[currentPhotoIdx]?.url || flagship.heroImage;
+
+                return (
+                  <motion.div
+                    whileHover={{ y: -4 }}
+                    transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                    onClick={() => onSelectProject(flagship)}
+                    className="group bg-white rounded-3xl border border-[#e5e5ea] overflow-hidden shadow-sm hover:shadow-xl transition-all cursor-pointer"
+                  >
+                    <div className="grid grid-cols-1 lg:grid-cols-12 items-stretch min-h-[460px]">
+                      
+                      {/* Left: Cinematic Main Photograph */}
+                      <div className="lg:col-span-7 relative min-h-[320px] lg:min-h-full bg-slate-900 overflow-hidden">
+                        <img
+                          src={activeImgUrl}
+                          alt={flagship.title}
+                          referrerPolicy="no-referrer"
+                          style={{ imageRendering: '-webkit-optimize-contrast' }}
+                          className="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
+                          loading="eager"
+                          onError={(e) => handleImageError(e, flagship.heroImage)}
+                        />
+
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
+
+                        {/* Top Badges */}
+                        <div className="absolute top-4 left-4">
+                          <span className="px-3.5 py-1.5 bg-white/95 backdrop-blur-md rounded-full text-xs font-bold text-[#25225a] shadow-sm">
+                            Obra Insignia · {flagship.number}
+                          </span>
+                        </div>
+
+                        {/* Hover Prompt */}
+                        <div className="absolute inset-0 bg-[#25225a]/25 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center pointer-events-none">
+                          <div className="px-5 py-2.5 bg-white text-[#25225a] text-xs font-bold rounded-full shadow-2xl flex items-center gap-2">
+                            <Maximize2 className="w-4 h-4" />
+                            <span>Abrir Ficha Técnica y Fotos</span>
+                          </div>
+                        </div>
+
+                        {/* Bottom Photo Angle Switchers on Image */}
+                        {flagship.gallery.length > 1 && (
+                          <div
+                            className="absolute bottom-4 left-4 right-4 flex items-center gap-2 overflow-x-auto p-1.5 bg-black/40 backdrop-blur-md rounded-2xl z-10 scrollbar-none"
+                            onClick={(e) => e.stopPropagation()}
+                          >
+                            {flagship.gallery.map((media, idx) => (
+                              <button
+                                key={idx}
+                                onClick={() => setCardPhotoIdx((prev) => ({ ...prev, [flagship.id]: idx }))}
+                                className={`relative w-16 h-11 sm:w-20 sm:h-13 rounded-xl overflow-hidden border shrink-0 transition-all cursor-pointer ${
+                                  currentPhotoIdx === idx
+                                    ? 'border-white ring-2 ring-white scale-105 opacity-100 shadow-lg'
+                                    : 'border-white/30 opacity-60 hover:opacity-100'
+                                }`}
+                                title={media.caption}
+                              >
+                                <img
+                                  src={media.url}
+                                  alt={media.caption}
+                                  style={{ imageRendering: '-webkit-optimize-contrast' }}
+                                  className="w-full h-full object-cover"
+                                />
+                              </button>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+
+                      {/* Right: Editorial Story & Technical Specs */}
+                      <div className="lg:col-span-5 p-8 sm:p-10 flex flex-col justify-between space-y-6">
+                        <div className="space-y-4">
+                          <div className="flex items-center gap-2 text-xs font-semibold text-[#86868b] tracking-wider uppercase">
+                            <MapPin className="w-3.5 h-3.5 text-[#25225a]" />
+                            <span>{flagship.location}</span>
+                            <span aria-hidden="true">·</span>
+                            <span>{flagship.category}</span>
+                          </div>
+
+                          <h3 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#25225a] group-hover:text-blue-900 transition-colors">
+                            {flagship.title}
+                          </h3>
+
+                          <p className="text-sm sm:text-base text-[#6e6e73] font-normal leading-relaxed">
+                            {flagship.slogan}
+                          </p>
+
+                          <p className="text-xs sm:text-sm text-[#86868b] line-clamp-3 leading-relaxed">
+                            {flagship.memoria}
+                          </p>
+
+                          {/* Metric Highlights */}
+                          <div className="pt-2 flex flex-wrap items-center gap-4 text-xs font-mono text-[#25225a] border-t border-[#e5e5ea]">
+                            <div className="flex items-center gap-1.5">
+                              <span className="text-[#86868b]">Construcción:</span>
+                              <span className="font-bold">{flagship.area}</span>
+                            </div>
+                            {flagship.parcelArea && (
+                              <div className="flex items-center gap-1.5">
+                                <span className="text-[#86868b]">Parcela:</span>
+                                <span className="font-bold">{flagship.parcelArea}</span>
+                              </div>
+                            )}
+                          </div>
+
+                          {/* Materiality */}
+                          {flagship.materials && (
+                            <div className="flex flex-wrap gap-1.5 pt-1">
+                              {flagship.materials.map((mat, i) => (
+                                <span
+                                  key={i}
+                                  className="px-2.5 py-1 rounded-md bg-[#f5f5f7] text-[#25225a] text-[10px] font-medium border border-[#e5e5ea]"
+                                >
+                                  {mat}
+                                </span>
+                              ))}
+                            </div>
+                          )}
+                        </div>
+
+                        {/* CTA button inside editorial box */}
+                        <div className="pt-4 border-t border-[#e5e5ea] flex items-center justify-between text-xs font-semibold text-[#25225a]">
+                          <span className="group-hover:underline flex items-center gap-1.5">
+                            <Layers className="w-4 h-4" />
+                            <span>Explorar Dossier Técnico Completo</span>
+                          </span>
+                          <span className="text-[#86868b] font-mono">
+                            Obra {flagship.number} / 11
+                          </span>
+                        </div>
+
+                      </div>
+
+                    </div>
+                  </motion.div>
+                );
+              })()}
+
+              {/* 2. Secondary Projects in Balanced Editorial Grid */}
+              {filteredProjects.length > 1 && (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                  {filteredProjects.slice(1).map((project) => {
+                    const currentPhotoIdx = cardPhotoIdx[project.id] ?? 0;
+                    const activeImgUrl = project.gallery[currentPhotoIdx]?.url || project.heroImage;
+
+                    return (
+                      <motion.div
+                        key={project.id}
+                        whileHover={{ y: -6, boxShadow: '0 20px 25px -5px rgba(37, 34, 90, 0.1), 0 8px 10px -6px rgba(37, 34, 90, 0.05)' }}
+                        transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                        className="group bg-white rounded-3xl border border-[#e5e5ea] overflow-hidden flex flex-col justify-between h-full cursor-pointer shadow-xs"
+                        onClick={() => onSelectProject(project)}
+                      >
+                        <div className="space-y-4">
+                          
+                          {/* Project Photography */}
+                          <div className="relative aspect-[16/10] overflow-hidden bg-slate-900 group">
+                            <img
+                              src={activeImgUrl}
+                              alt={project.title}
+                              referrerPolicy="no-referrer"
+                              style={{ imageRendering: '-webkit-optimize-contrast' }}
+                              className="w-full h-full object-cover object-center transition-transform duration-500 ease-out group-hover:scale-105"
+                              loading="lazy"
+                              onError={(e) => handleImageError(e, project.heroImage)}
+                            />
+
+
+                            <div className="absolute top-3 left-3">
+                              <span className="px-3 py-1 bg-white/90 backdrop-blur-md rounded-full text-[11px] font-semibold text-[#25225a] shadow-sm">
+                                {project.category}
+                              </span>
+                            </div>
+
+                            {/* Hover Overlay */}
+                            <div className="absolute inset-0 bg-[#25225a]/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center pointer-events-none">
+                              <div className="px-4 py-2 bg-white text-[#25225a] text-xs font-bold rounded-full shadow-xl flex items-center gap-1.5">
+                                <Eye className="w-4 h-4" />
+                                <span>Ver Ficha Técnica y Fotos</span>
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* Photo Thumbnail Strip */}
+                          {project.gallery.length > 1 && (
+                            <div
+                              className="px-6 flex items-center gap-2 overflow-x-auto py-1 scrollbar-none"
+                              onClick={(e) => e.stopPropagation()}
+                            >
+                              {project.gallery.map((media, idx) => (
+                                <button
+                                  key={idx}
+                                  onClick={() => setCardPhotoIdx((prev) => ({ ...prev, [project.id]: idx }))}
+                                  className={`relative w-14 h-10 sm:w-16 sm:h-11 rounded-xl overflow-hidden border shrink-0 transition-all cursor-pointer shadow-xs ${
+                                    currentPhotoIdx === idx
+                                      ? 'border-[#25225a] ring-2 ring-[#25225a] scale-105 shadow-md'
+                                      : 'border-[#e5e5ea] opacity-75 hover:opacity-100 hover:border-[#25225a]/50'
+                                  }`}
+                                  title={media.caption}
+                                >
+                                  <img
+                                    src={media.url}
+                                    alt={media.caption}
+                                    style={{ imageRendering: '-webkit-optimize-contrast' }}
+                                    className="w-full h-full object-cover transition-transform duration-300 hover:scale-110"
+                                    onError={(e) => handleImageError(e)}
+                                  />
+
+                                </button>
+                              ))}
+                            </div>
+                          )}
+
+                          {/* Text Content */}
+                          <div className="p-6 pt-2 pb-6 space-y-3">
+                            <div className="flex items-center gap-2 text-xs text-[#86868b] font-medium">
+                              <MapPin className="w-3.5 h-3.5 text-[#25225a]" />
+                              <span>{project.location}</span>
+                            </div>
+
+                            <h3 className="text-2xl font-bold tracking-tight text-[#25225a] group-hover:text-blue-900 transition-colors">
+                              {project.title}
+                            </h3>
+
+                            <p className="text-xs sm:text-sm text-[#6e6e73] line-clamp-2 leading-relaxed font-normal">
+                              {project.slogan}
+                            </p>
+
+                            <div className="pt-2 flex items-center gap-3 text-xs text-[#86868b] font-mono">
+                              <span>Construcción: {project.area}</span>
+                              {project.parcelArea && (
+                                <>
+                                  <span aria-hidden="true">·</span>
+                                  <span>Parcela: {project.parcelArea}</span>
+                                </>
+                              )}
+                            </div>
+
+                            {/* Materials Highlights */}
+                            {project.materials && (
+                              <div className="flex flex-wrap gap-1.5 pt-2">
+                                {project.materials.slice(0, 3).map((mat, i) => (
+                                  <span
+                                    key={i}
+                                    className="px-2.5 py-1 rounded-md bg-[#f5f5f7] text-[#25225a] text-[10px] font-medium border border-[#e5e5ea]"
+                                  >
+                                    {mat}
+                                  </span>
+                                ))}
+                              </div>
+                            )}
+                          </div>
+
+                        </div>
+
+                      </motion.div>
+                    );
+                  })}
+                </div>
+              )}
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+      </div>
+    </section>
+  );
+};

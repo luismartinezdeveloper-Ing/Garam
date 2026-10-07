@@ -1,0 +1,187 @@
+[
+  {
+    "referenceId": "GARAM-345269",
+    "timestamp": "2026-10-07T15:52:25.269Z",
+    "clientIp": "127.0.0.1",
+    "name": "Ing. Roberto Silva",
+    "email": "rsilva@desarrollos.com",
+    "phone": "+584149876543",
+    "projectType": "Residencial",
+    "location": "Altamira / Country Club",
+    "estimatedArea": "1.200 m²",
+    "comments": "Prueba QA de validación y persistencia de leads"
+  },
+  {
+    "referenceId": "GARAM-372584",
+    "timestamp": "2026-10-07T15:52:52.584Z",
+    "clientIp": "127.0.0.1",
+    "name": "Test 0",
+    "email": "test@test.com"
+  },
+  {
+    "referenceId": "GARAM-372588",
+    "timestamp": "2026-10-07T15:52:52.588Z",
+    "clientIp": "127.0.0.1",
+    "name": "Test 1",
+    "email": "test@test.com"
+  },
+  {
+    "referenceId": "GARAM-372591",
+    "timestamp": "2026-10-07T15:52:52.591Z",
+    "clientIp": "127.0.0.1",
+    "name": "Test 2",
+    "email": "test@test.com"
+  },
+  {
+    "referenceId": "GARAM-372593",
+    "timestamp": "2026-10-07T15:52:52.593Z",
+    "clientIp": "127.0.0.1",
+    "name": "Test 3",
+    "email": "test@test.com"
+  },
+  {
+    "referenceId": "GARAM-372597",
+    "timestamp": "2026-10-07T15:52:52.597Z",
+    "clientIp": "127.0.0.1",
+    "name": "Test 4",
+    "email": "test@test.com"
+  },
+  {
+    "referenceId": "GARAM-372599",
+    "timestamp": "2026-10-07T15:52:52.599Z",
+    "clientIp": "127.0.0.1",
+    "name": "Test 5",
+    "email": "test@test.com"
+  },
+  {
+    "referenceId": "GARAM-372603",
+    "timestamp": "2026-10-07T15:52:52.603Z",
+    "clientIp": "127.0.0.1",
+    "name": "Test 6",
+    "email": "test@test.com"
+  },
+  {
+    "referenceId": "GARAM-372606",
+    "timestamp": "2026-10-07T15:52:52.606Z",
+    "clientIp": "127.0.0.1",
+    "name": "Test 7",
+    "email": "test@test.com"
+  },
+  {
+    "referenceId": "GARAM-372608",
+    "timestamp": "2026-10-07T15:52:52.608Z",
+    "clientIp": "127.0.0.1",
+    "name": "Test 8",
+    "email": "test@test.com"
+  },
+  {
+    "referenceId": "GARAM-073089",
+    "timestamp": "2026-10-07T16:04:33.089Z",
+    "clientIp": "127.0.0.1",
+    "name": "Arq. Valentina Mendoza",
+    "email": "vmendoza@estudio-vm.com",
+    "phone": "+584120001122",
+    "service": "Construcción Residencial de Lujo",
+    "area": "1.500 m²",
+    "location": "La Castellana"
+  },
+  {
+    "referenceId": "GARAM-822670",
+    "timestamp": "2026-10-07T16:17:02.670Z",
+    "clientIp": "127.0.0.1",
+    "name": "Arq. Valentina Mendoza",
+    "email": "vmendoza@estudio-vm.com",
+    "phone": "+584120001122",
+    "service": "Construcción Residencial de Lujo",
+    "area": "1.500 m²",
+    "location": "La Castellana"
+  },
+  {
+    "referenceId": "GARAM-113398",
+    "timestamp": "2026-10-07T16:21:53.398Z",
+    "clientIp": "127.0.0.1",
+    "name": "Arq. Valentina Mendoza",
+    "email": "vmendoza@estudio-vm.com",
+    "phone": "+584120001122",
+    "service": "Construcción Residencial de Lujo",
+    "area": "1.500 m²",
+    "location": "La Castellana"
+  },
+  {
+    "referenceId": "GARAM-504375",
+    "timestamp": "2026-10-07T16:28:24.375Z",
+    "clientIp": "127.0.0.1",
+    "name": "Arq. Valentina Mendoza",
+    "email": "vmendoza@estudio-vm.com",
+    "phone": "+584120001122",
+    "service": "Construcción Residencial de Lujo",
+    "area": "1.500 m²",
+    "location": "La Castellana"
+  },
+  {
+    "referenceId": "GARAM-118001",
+    "timestamp": "2026-10-07T19:08:38.001Z",
+    "clientIp": "127.0.0.1",
+    "name": "Arq. Valentina Mendoza",
+    "email": "vmendoza@estudio-vm.com",
+    "phone": "+584120001122",
+    "service": "Construcción Residencial de Lujo",
+    "area": "1.500 m²",
+    "location": "La Castellana"
+  },
+  {
+    "referenceId": "GARAM-157996",
+    "timestamp": "2026-10-07T19:09:17.996Z",
+    "clientIp": "127.0.0.1",
+    "name": "Arq. Valentina Mendoza",
+    "email": "vmendoza@estudio-vm.com",
+    "phone": "+584120001122",
+    "service": "Construcción Residencial de Lujo",
+    "area": "1.500 m²",
+    "location": "La Castellana"
+  },
+  {
+    "referenceId": "GARAM-555579",
+    "timestamp": "2026-10-07T19:15:55.579Z",
+    "clientIp": "127.0.0.1",
+    "name": "Arq. Valentina Mendoza",
+    "email": "vmendoza@estudio-vm.com",
+    "phone": "+584120001122",
+    "service": "Construcción Residencial de Lujo",
+    "area": "1.500 m²",
+    "location": "La Castellana"
+  },
+  {
+    "referenceId": "GARAM-094356",
+    "timestamp": "2026-10-07T19:24:54.356Z",
+    "clientIp": "127.0.0.1",
+    "name": "Arq. Valentina Mendoza",
+    "email": "vmendoza@estudio-vm.com",
+    "phone": "+584120001122",
+    "service": "Construcción Residencial de Lujo",
+    "area": "1.500 m²",
+    "location": "La Castellana"
+  },
+  {
+    "referenceId": "GARAM-873246",
+    "timestamp": "2026-10-07T19:37:53.246Z",
+    "clientIp": "127.0.0.1",
+    "name": "Arq. Valentina Mendoza",
+    "email": "vmendoza@estudio-vm.com",
+    "phone": "+584120001122",
+    "service": "Construcción Residencial de Lujo",
+    "area": "1.500 m²",
+    "location": "La Castellana"
+  },
+  {
+    "referenceId": "GARAM-933907",
+    "timestamp": "2026-10-07T19:55:33.907Z",
+    "clientIp": "127.0.0.1",
+    "name": "Arq. Valentina Mendoza",
+    "email": "vmendoza@estudio-vm.com",
+    "phone": "+584120001122",
+    "service": "Construcción Residencial de Lujo",
+    "area": "1.500 m²",
+    "location": "La Castellana"
+  }
+]

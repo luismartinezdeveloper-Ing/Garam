@@ -1,0 +1,6 @@
+{
+  "name": "GARAM Constructores | Portafolio de Arquitectura 2026",
+  "description": "Portafolio de obras, gerencia de proyectos y construcción de espacios residenciales, comerciales, corporativos y especializados por GARAM Constructores.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

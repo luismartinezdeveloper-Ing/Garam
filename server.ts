@@ -1,4 +1,5 @@
 import express from 'express';
+import { createServer } from 'node:http';
 import { GoogleGenAI } from '@google/genai';
 import dotenv from 'dotenv';
 import path from 'path';
@@ -334,12 +335,15 @@ app.post('/api/estimate', estimateLimiter, (req, res) => {
 
 // Serve Vite dev middleware or static dist files
 async function setupServer() {
+  const httpServer = createServer(app);
+
   if (process.env.NODE_ENV !== 'production') {
     const { createServer: createViteServer } = await import('vite');
     const vite = await createViteServer({
       server: {
         middlewareMode: true,
-        hmr: false,
+        port: PORT,
+        ws: { server: httpServer },
       },
       appType: 'custom',
     });
@@ -365,7 +369,7 @@ async function setupServer() {
     });
   }
 
-  app.listen(PORT, '0.0.0.0', () => {
+  httpServer.listen(PORT, '0.0.0.0', () => {
     console.log(`GARAM Constructores App listening on port ${PORT}`);
   });
 }

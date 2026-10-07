@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { GaramLogo } from './GaramLogo';
 import { Palette, Check, Copy } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { FadeIn, StaggerContainer, StaggerItem } from './MotionReveal';
+import { FadeIn } from './MotionReveal';
+import { LogoConcepts } from './LogoConcepts';
 
 export const BrandIdentitySection: React.FC = () => {
   const [copiedColor, setCopiedColor] = useState<string | null>(null);
@@ -55,88 +55,26 @@ export const BrandIdentitySection: React.FC = () => {
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-brand-stone pb-8">
             <div className="space-y-3 max-w-3xl">
               <div className="text-xs font-semibold text-brand-muted tracking-widest uppercase">
-                04 · SISTEMA VISUAL DIGITAL
+                04 · EXPLORACIÓN DEL LOGO
               </div>
               <h2 className="font-editorial text-4xl font-normal leading-tight tracking-tight text-brand-ink sm:text-6xl">
-                La marca conserva su raíz.<br />
+                Tres propuestas para GARAM.<br />
                 <span className="font-normal text-brand-muted">
-                  El índigo GARAM se encuentra con tonos minerales inspirados en la obra.
+                  Una esencia, tres lenguajes visuales.
                 </span>
               </h2>
+              <p className="max-w-2xl text-sm leading-6 text-brand-muted">
+                Monograma, tipografía y sello compacto: cada ruta conserva el índigo GARAM.
+              </p>
             </div>
 
-            <div className="text-xs font-semibold text-brand-ink">
-              Vector Oficial 2026
+            <div className="text-xs font-semibold tracking-wide text-brand-ink">
+              Rutas conceptuales · 2026
             </div>
           </div>
         </FadeIn>
 
-        {/* Logo Vectors Comparison Cards with Stagger */}
-        <StaggerContainer
-          staggerDelay={0.1}
-          className="grid grid-cols-1 md:grid-cols-3 gap-8"
-        >
-          {/* Card 1: Logo Oficial en Fondo Blanco Puro */}
-          <StaggerItem>
-            <motion.div
-              whileHover={{ y: -5, transition: { duration: 0.25, ease: [0.16, 1, 0.3, 1] } }}
-              className="bg-white rounded-2xl p-8 border border-brand-stone space-y-6 flex flex-col justify-between shadow-sm hover:shadow-md transition-all h-full"
-            >
-              <div className="space-y-4">
-                <div className="text-xs font-semibold text-brand-muted uppercase tracking-wider">
-                  Logo Principal · Fondo Claro
-                </div>
-                <div className="p-8 bg-white rounded-2xl border border-brand-stone flex items-center justify-center min-h-[160px] shadow-sm">
-                  <GaramLogo variant="dark" size="lg" showSubtitles={true} />
-                </div>
-              </div>
-              <p className="text-xs text-brand-muted leading-relaxed">
-                Diseño vectorial con la pata descendente en las letras <strong>A</strong> y las torres 3D flanqueando la <strong>M</strong>.
-              </p>
-            </motion.div>
-          </StaggerItem>
-
-          {/* Card 2: Logo sobre superficie mineral */}
-          <StaggerItem>
-            <motion.div
-              whileHover={{ y: -5, transition: { duration: 0.25, ease: [0.16, 1, 0.3, 1] } }}
-              className="bg-white rounded-2xl p-8 border border-brand-stone space-y-6 flex flex-col justify-between shadow-sm hover:shadow-md transition-all h-full"
-            >
-              <div className="space-y-4">
-                <div className="text-xs font-semibold text-brand-muted uppercase tracking-wider">
-                  Logo en Superficie Neutra
-                </div>
-                <div className="p-8 bg-brand-paper rounded-2xl border border-brand-stone flex items-center justify-center min-h-[160px]">
-                  <GaramLogo variant="dark" size="lg" showSubtitles={true} />
-                </div>
-              </div>
-              <p className="text-xs text-brand-muted leading-relaxed">
-                Equilibrio óptico sobre superficies secundarias con texto <code className="font-mono text-brand-ink">CONSTRUCTORES</code>.
-              </p>
-            </motion.div>
-          </StaggerItem>
-
-          {/* Card 3: Logo Invertido en Azul Índigo */}
-          <StaggerItem>
-            <motion.div
-              whileHover={{ y: -5, transition: { duration: 0.25, ease: [0.16, 1, 0.3, 1] } }}
-              className="bg-brand-ink rounded-2xl p-8 text-white space-y-6 flex flex-col justify-between shadow-xl hover:shadow-2xl transition-all h-full"
-            >
-              <div className="space-y-4">
-                <div className="text-xs font-semibold text-white/70 uppercase tracking-wider">
-                  Variante Invertida · Azul Índigo
-                </div>
-                <div className="p-8 bg-white/10 rounded-2xl border border-white/10 flex items-center justify-center min-h-[160px] backdrop-blur-md">
-                  <GaramLogo variant="white" size="lg" showSubtitles={true} />
-                </div>
-              </div>
-              <p className="text-xs text-white/80 leading-relaxed">
-                Para aplicaciones corporativas de alta gama, señalética de obra y publicaciones institucionales.
-              </p>
-            </motion.div>
-          </StaggerItem>
-
-        </StaggerContainer>
+        <LogoConcepts />
 
         {/* Color Palette Breakdown Cards */}
         <FadeIn delay={0.2} direction="up">

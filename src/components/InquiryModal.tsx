@@ -108,27 +108,27 @@ export const InquiryModal: React.FC<InquiryModalProps> = ({
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className="relative w-full max-w-2xl bg-white rounded-3xl overflow-hidden my-auto cursor-default shadow-2xl border border-[#e5e5ea] max-h-[92vh] flex flex-col"
+        className="relative w-full max-w-2xl bg-white rounded-2xl overflow-hidden my-auto cursor-default shadow-2xl border border-brand-stone max-h-[92vh] flex flex-col"
       >
         
         {/* Header */}
-        <div className="bg-[#f5f5f7] p-6 sm:p-8 flex items-start justify-between border-b border-[#e5e5ea] shrink-0">
+        <div className="bg-brand-paper p-6 sm:p-8 flex items-start justify-between border-b border-brand-stone shrink-0">
           <div className="space-y-1.5">
             <div className="flex items-center gap-2 text-[11px] font-bold tracking-wider uppercase text-[#86868b] font-mono">
               <ShieldCheck className="w-4 h-4 text-emerald-600" />
               <span>GARAM CONSTRUCTORES · CANAL CONFIDENCIAL VIP</span>
             </div>
-            <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-[#25225a]">
+            <h2 className="font-editorial text-3xl font-normal tracking-tight text-brand-ink sm:text-4xl">
               Reunión Técnica de Factibilidad
             </h2>
-            <p className="text-xs sm:text-sm text-[#6e6e73] font-normal leading-relaxed">
+            <p className="text-xs sm:text-sm text-brand-muted font-normal leading-relaxed">
               Atención directa para propietarios, arquitectos y directores de inversión. Análisis de alcance, tiempos y viabilidad constructiva.
             </p>
           </div>
 
           <button
             onClick={onClose}
-            className="p-2 text-[#6e6e73] hover:text-[#25225a] hover:bg-white rounded-full transition-colors cursor-pointer shrink-0 ml-4"
+            className="p-2 text-brand-muted hover:text-brand-ink hover:bg-white rounded-md transition-colors cursor-pointer shrink-0 ml-4"
             aria-label="Cerrar ventana"
           >
             <X className="w-5 h-5" />
@@ -139,22 +139,22 @@ export const InquiryModal: React.FC<InquiryModalProps> = ({
         <div className="p-6 sm:p-8 overflow-y-auto space-y-6">
           {successRef ? (
             <div className="space-y-6 text-center py-6">
-              <div className="w-16 h-16 bg-emerald-50 text-emerald-700 rounded-full flex items-center justify-center mx-auto shadow-xs">
+              <div className="w-16 h-16 bg-emerald-50 text-emerald-700 rounded-md flex items-center justify-center mx-auto shadow-xs">
                 <CheckCircle2 className="w-10 h-10" />
               </div>
 
               <div className="space-y-2">
-                <h3 className="text-2xl font-bold tracking-tight text-[#25225a]">
+                <h3 className="text-2xl font-bold tracking-tight text-brand-ink">
                   Reunión de Factibilidad Registrada
                 </h3>
-                <p className="text-sm text-[#6e6e73] max-w-md mx-auto leading-relaxed">
+                <p className="text-sm text-brand-muted max-w-md mx-auto leading-relaxed">
                   Su solicitud ha sido asignada a nuestra **Dirección de Obra y Gerencia Técnica**. Un ingeniero o arquitecto senior de GARAM se comunicará directamente para coordinar la cita o visita técnica preliminar.
                 </p>
               </div>
 
-              <div className="inline-block p-4 rounded-2xl bg-[#f5f5f7] border border-[#e5e5ea] text-xs font-mono">
+              <div className="inline-block p-4 rounded-2xl bg-brand-paper border border-brand-stone text-xs font-mono">
                 <span className="text-[#86868b]">Expediente Técnico: </span>
-                <span className="font-bold text-[#25225a]">{successRef}</span>
+                <span className="font-bold text-brand-ink">{successRef}</span>
               </div>
 
               <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3">
@@ -162,7 +162,7 @@ export const InquiryModal: React.FC<InquiryModalProps> = ({
                   href={whatsAppDirectUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full sm:w-auto px-6 py-3 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold flex items-center justify-center gap-2 shadow-sm transition-all"
+                  className="w-full sm:w-auto px-6 py-3 rounded-md bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold flex items-center justify-center gap-2 shadow-sm transition-all"
                 >
                   <MessageCircle className="w-4 h-4" />
                   <span>Confirmar Inmediato por WhatsApp</span>
@@ -173,7 +173,7 @@ export const InquiryModal: React.FC<InquiryModalProps> = ({
                     setSuccessRef(null);
                     onClose();
                   }}
-                  className="w-full sm:w-auto px-6 py-3 rounded-full bg-[#25225a] text-white text-xs font-semibold hover:bg-[#1d1b46] transition-all shadow-sm"
+                  className="w-full sm:w-auto px-6 py-3 rounded-md bg-brand-ink text-white text-xs font-semibold hover:bg-brand-ink/90 transition-all shadow-sm"
                 >
                   Volver al Portafolio
                 </button>
@@ -189,8 +189,8 @@ export const InquiryModal: React.FC<InquiryModalProps> = ({
 
               {/* Selector de Rol del Cliente */}
               <div className="space-y-2">
-                <label className="font-bold text-[#25225a] uppercase tracking-wider text-[11px] flex items-center gap-1.5">
-                  <Building className="w-3.5 h-3.5 text-[#25225a]" />
+                <label className="font-bold text-brand-ink uppercase tracking-wider text-[11px] flex items-center gap-1.5">
+                  <Building className="w-3.5 h-3.5 text-brand-ink" />
                   <span>Perfil de quien consulta:</span>
                 </label>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
@@ -201,8 +201,8 @@ export const InquiryModal: React.FC<InquiryModalProps> = ({
                       onClick={() => setClientRole(role)}
                       className={`p-2.5 rounded-xl border text-left text-xs font-medium transition-all cursor-pointer ${
                         clientRole === role
-                          ? 'border-[#25225a] bg-[#25225a] text-white shadow-xs font-semibold'
-                          : 'border-[#e5e5ea] bg-[#fbfbfd] text-[#6e6e73] hover:border-[#25225a]/40 hover:text-[#25225a]'
+                          ? 'border-brand-ink bg-brand-ink text-white shadow-xs font-semibold'
+                          : 'border-brand-stone bg-white text-brand-muted hover:border-brand-ink/40 hover:text-brand-ink'
                       }`}
                     >
                       {role}
@@ -214,7 +214,7 @@ export const InquiryModal: React.FC<InquiryModalProps> = ({
               {/* Tipología y Ubicación */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
                 <div className="space-y-1.5">
-                  <label className="font-semibold text-[#25225a] text-xs">
+                  <label className="font-semibold text-brand-ink text-xs">
                     Tipo de Proyecto / Intervención *
                   </label>
                   <select
@@ -225,7 +225,7 @@ export const InquiryModal: React.FC<InquiryModalProps> = ({
                         projectType: e.target.value as ProjectCategory,
                       })
                     }
-                    className="w-full p-3 bg-[#f5f5f7] rounded-xl border border-transparent focus:border-[#25225a] focus:bg-white text-xs text-[#25225a] focus:outline-none transition-all font-medium"
+                    className="w-full p-3 bg-brand-paper rounded-xl border border-transparent focus:border-brand-ink focus:bg-white focus-visible:ring-2 focus-visible:ring-brand-copper/40 text-xs text-brand-ink focus:outline-none transition-all font-medium"
                   >
                     <option value="Residencial">Residencial de Lujo (Unifamiliar / Edificio)</option>
                     <option value="Comercial">Comercial (Restaurante / Retail / Sede de Marca)</option>
@@ -236,14 +236,14 @@ export const InquiryModal: React.FC<InquiryModalProps> = ({
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="font-semibold text-[#25225a] text-xs flex items-center gap-1">
-                    <MapPin className="w-3 h-3 text-[#25225a]" />
+                  <label className="font-semibold text-brand-ink text-xs flex items-center gap-1">
+                    <MapPin className="w-3 h-3 text-brand-ink" />
                     <span>Ubicación Estimada de la Obra</span>
                   </label>
                   <select
                     value={formData.location}
                     onChange={(e) => setFormData({ ...formData, location: e.target.value })}
-                    className="w-full p-3 bg-[#f5f5f7] rounded-xl border border-transparent focus:border-[#25225a] focus:bg-white text-xs text-[#25225a] focus:outline-none transition-all font-medium"
+                    className="w-full p-3 bg-brand-paper rounded-xl border border-transparent focus:border-brand-ink focus:bg-white focus-visible:ring-2 focus-visible:ring-brand-copper/40 text-xs text-brand-ink focus:outline-none transition-all font-medium"
                   >
                     {LOCATIONS.map((loc) => (
                       <option key={loc} value={loc}>
@@ -257,7 +257,7 @@ export const InquiryModal: React.FC<InquiryModalProps> = ({
               {/* Metraje y Cronograma */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-1.5">
-                  <label className="font-semibold text-[#25225a] text-xs">
+                  <label className="font-semibold text-brand-ink text-xs">
                     Superficie o Metraje Estimado
                   </label>
                   <input
@@ -265,13 +265,13 @@ export const InquiryModal: React.FC<InquiryModalProps> = ({
                     value={formData.estimatedArea}
                     onChange={(e) => setFormData({ ...formData, estimatedArea: e.target.value })}
                     placeholder="Ej. 1.250 m² o Parcela de 3.000 m²"
-                    className="w-full p-3 bg-[#f5f5f7] rounded-xl border border-transparent focus:border-[#25225a] focus:bg-white text-xs text-[#25225a] focus:outline-none transition-all"
+                    className="w-full p-3 bg-brand-paper rounded-xl border border-transparent focus:border-brand-ink focus:bg-white focus-visible:ring-2 focus-visible:ring-brand-copper/40 text-xs text-brand-ink focus:outline-none transition-all"
                   />
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="font-semibold text-[#25225a] text-xs flex items-center gap-1">
-                    <Calendar className="w-3 h-3 text-[#25225a]" />
+                  <label className="font-semibold text-brand-ink text-xs flex items-center gap-1">
+                    <Calendar className="w-3 h-3 text-brand-ink" />
                     <span>Cronograma / Inicio Estimado</span>
                   </label>
                   <input
@@ -281,15 +281,15 @@ export const InquiryModal: React.FC<InquiryModalProps> = ({
                       setFormData({ ...formData, targetTimeline: e.target.value })
                     }
                     placeholder="Ej. Inmediato / Q3 2026 / Factibilidad 2027"
-                    className="w-full p-3 bg-[#f5f5f7] rounded-xl border border-transparent focus:border-[#25225a] focus:bg-white text-xs text-[#25225a] focus:outline-none transition-all"
+                    className="w-full p-3 bg-brand-paper rounded-xl border border-transparent focus:border-brand-ink focus:bg-white focus-visible:ring-2 focus-visible:ring-brand-copper/40 text-xs text-brand-ink focus:outline-none transition-all"
                   />
                 </div>
               </div>
 
               {/* Datos de Contacto Directo */}
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2 border-t border-[#e5e5ea]">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2 border-t border-brand-stone">
                 <div className="space-y-1.5">
-                  <label className="font-semibold text-[#25225a] text-xs">
+                  <label className="font-semibold text-brand-ink text-xs">
                     Nombre Completo *
                   </label>
                   <input
@@ -298,12 +298,12 @@ export const InquiryModal: React.FC<InquiryModalProps> = ({
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     placeholder="Ej. Ing. Roberto Mendoza"
-                    className="w-full p-3 bg-[#f5f5f7] rounded-xl border border-transparent focus:border-[#25225a] focus:bg-white text-xs text-[#25225a] focus:outline-none transition-all"
+                    className="w-full p-3 bg-brand-paper rounded-xl border border-transparent focus:border-brand-ink focus:bg-white focus-visible:ring-2 focus-visible:ring-brand-copper/40 text-xs text-brand-ink focus:outline-none transition-all"
                   />
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="font-semibold text-[#25225a] text-xs">
+                  <label className="font-semibold text-brand-ink text-xs">
                     Teléfono / WhatsApp *
                   </label>
                   <input
@@ -312,12 +312,12 @@ export const InquiryModal: React.FC<InquiryModalProps> = ({
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                     placeholder="+58 (412) 000-0000"
-                    className="w-full p-3 bg-[#f5f5f7] rounded-xl border border-transparent focus:border-[#25225a] focus:bg-white text-xs text-[#25225a] focus:outline-none transition-all"
+                    className="w-full p-3 bg-brand-paper rounded-xl border border-transparent focus:border-brand-ink focus:bg-white focus-visible:ring-2 focus-visible:ring-brand-copper/40 text-xs text-brand-ink focus:outline-none transition-all"
                   />
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="font-semibold text-[#25225a] text-xs">
+                  <label className="font-semibold text-brand-ink text-xs">
                     Correo Electrónico *
                   </label>
                   <input
@@ -326,14 +326,14 @@ export const InquiryModal: React.FC<InquiryModalProps> = ({
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     placeholder="contacto@empresa.com"
-                    className="w-full p-3 bg-[#f5f5f7] rounded-xl border border-transparent focus:border-[#25225a] focus:bg-white text-xs text-[#25225a] focus:outline-none transition-all"
+                    className="w-full p-3 bg-brand-paper rounded-xl border border-transparent focus:border-brand-ink focus:bg-white focus-visible:ring-2 focus-visible:ring-brand-copper/40 text-xs text-brand-ink focus:outline-none transition-all"
                   />
                 </div>
               </div>
 
               {/* Notas del Proyecto */}
               <div className="space-y-1.5">
-                <label className="font-semibold text-[#25225a] text-xs">
+                <label className="font-semibold text-brand-ink text-xs">
                   Detalles del Requerimiento o Terreno
                 </label>
                 <textarea
@@ -341,12 +341,12 @@ export const InquiryModal: React.FC<InquiryModalProps> = ({
                   value={formData.comments}
                   onChange={(e) => setFormData({ ...formData, comments: e.target.value })}
                   placeholder="Comentarios sobre el estado del terreno, planos disponibles o metas técnicas..."
-                  className="w-full p-3 bg-[#f5f5f7] rounded-xl border border-transparent focus:border-[#25225a] focus:bg-white text-xs text-[#25225a] focus:outline-none transition-all"
+                  className="w-full p-3 bg-brand-paper rounded-xl border border-transparent focus:border-brand-ink focus:bg-white focus-visible:ring-2 focus-visible:ring-brand-copper/40 text-xs text-brand-ink focus:outline-none transition-all"
                 />
               </div>
 
               {/* Bottom Actions */}
-              <div className="pt-4 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-[#e5e5ea]">
+              <div className="pt-4 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-brand-stone">
                 <a
                   href={whatsAppDirectUrl}
                   target="_blank"
@@ -361,7 +361,7 @@ export const InquiryModal: React.FC<InquiryModalProps> = ({
                   <button
                     type="button"
                     onClick={onClose}
-                    className="px-4 py-2.5 text-xs font-semibold text-[#6e6e73] hover:text-[#25225a] cursor-pointer"
+                    className="px-4 py-2.5 text-xs font-semibold text-brand-muted hover:text-brand-ink cursor-pointer"
                   >
                     Cerrar
                   </button>
@@ -369,7 +369,7 @@ export const InquiryModal: React.FC<InquiryModalProps> = ({
                   <button
                     type="submit"
                     disabled={submitting}
-                    className="px-7 py-3 text-xs font-semibold rounded-full bg-[#25225a] text-white hover:bg-[#1d1b46] transition-all flex items-center gap-2 shadow-sm disabled:opacity-50 cursor-pointer"
+                    className="px-7 py-3 text-xs font-semibold rounded-md bg-brand-ink text-white hover:bg-brand-ink/90 transition-all flex items-center gap-2 shadow-sm disabled:opacity-50 cursor-pointer"
                   >
                     <span>{submitting ? 'Agendando...' : 'Agendar Reunión Técnica'}</span>
                     <ArrowRight className="w-3.5 h-3.5" />

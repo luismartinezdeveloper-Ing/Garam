@@ -1,54 +1,88 @@
 @import "tailwindcss";
 
-@layer utilities {
-  /* Reusable iOS-inspired Glassmorphism Utility Classes */
-  
-  /* Standard iOS Frosted Glass for cards, pills, and navigation */
-  .ios-glass {
-    background-color: rgba(255, 255, 255, 0.78);
-    -webkit-backdrop-filter: blur(20px) saturate(180%);
-    backdrop-filter: blur(20px) saturate(180%);
-    border: 1px solid rgba(255, 255, 255, 0.55);
-    box-shadow: 0 12px 32px -4px rgba(37, 34, 90, 0.06),
-                inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.9);
+@theme inline {
+  --color-brand-ink: #25225a;
+  --color-brand-paper: #f6f3ed;
+  --color-brand-stone: #e6ded1;
+  --color-brand-copper: #8b5e3c;
+  --color-brand-copper-light: #d6b28d;
+  --color-brand-muted: #68666e;
+}
+
+:root {
+  color-scheme: light;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5.5rem;
+}
+
+body {
+  background-color: #f6f3ed;
+  color: #25225a;
+}
+
+::selection {
+  background-color: #8b5e3c;
+  color: #ffffff;
+}
+
+:focus-visible {
+  outline: 2px solid #8b5e3c;
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
   }
 
-  /* Interactive iOS Glass Card with smooth lift on hover */
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@layer utilities {
+  .font-editorial {
+    font-family: "Iowan Old Style", "Baskerville", "Palatino Linotype", Georgia, serif;
+  }
+
+  .ios-glass {
+    background-color: #fbfaf7;
+    border: 1px solid rgba(37, 34, 90, 0.12);
+    box-shadow: 0 8px 24px -8px rgba(37, 34, 90, 0.12);
+  }
+
   .ios-glass-card {
-    background-color: rgba(255, 255, 255, 0.75);
-    -webkit-backdrop-filter: blur(20px) saturate(180%);
-    backdrop-filter: blur(20px) saturate(180%);
-    border: 1px solid rgba(255, 255, 255, 0.6);
-    box-shadow: 0 10px 30px -5px rgba(37, 34, 90, 0.05),
-                inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.9);
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    background-color: #ffffff;
+    border: 1px solid rgba(37, 34, 90, 0.1);
+    box-shadow: 0 8px 24px -8px rgba(37, 34, 90, 0.08);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
   }
 
   .ios-glass-card:hover {
-    background-color: rgba(255, 255, 255, 0.88);
-    border-color: rgba(255, 255, 255, 0.9);
-    box-shadow: 0 24px 48px -10px rgba(37, 34, 90, 0.12),
-                inset 0 1px 2px 0 rgba(255, 255, 255, 1);
+    border-color: rgba(37, 34, 90, 0.2);
+    box-shadow: 0 18px 36px -12px rgba(37, 34, 90, 0.14);
+    transform: translateY(-3px);
   }
 
-  /* High-elevation iOS Glass Modal with deeper blur and light reflection rim */
   .ios-glass-modal {
-    background-color: rgba(255, 255, 255, 0.86);
-    -webkit-backdrop-filter: blur(30px) saturate(190%);
-    backdrop-filter: blur(30px) saturate(190%);
-    border: 1px solid rgba(255, 255, 255, 0.7);
-    box-shadow: 0 30px 70px -15px rgba(17, 22, 37, 0.25),
-                0 0 0 1px rgba(255, 255, 255, 0.3),
-                inset 0 1.5px 2px 0 rgba(255, 255, 255, 0.95);
+    background-color: #fbfaf7;
+    border: 1px solid rgba(37, 34, 90, 0.14);
+    box-shadow: 0 30px 70px -15px rgba(17, 22, 37, 0.25);
   }
 
-  /* Dark Variant of iOS Glass for toolbars, badges, and dark overlays */
   .ios-glass-dark {
-    background-color: rgba(17, 22, 37, 0.75);
-    -webkit-backdrop-filter: blur(24px) saturate(180%);
-    backdrop-filter: blur(24px) saturate(180%);
+    background-color: rgba(37, 34, 90, 0.96);
     border: 1px solid rgba(255, 255, 255, 0.14);
-    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.4),
-                inset 0 1px 0 0 rgba(255, 255, 255, 0.18);
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.32);
   }
 }

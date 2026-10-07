@@ -92,18 +92,18 @@ export const ConstructionEstimator: React.FC<ConstructionEstimatorProps> = ({
   };
 
   return (
-    <section id="estimador" className="py-20 sm:py-28 bg-[#18163f] text-white font-sans border-b border-[#25225a]">
+    <section id="estimador" className="border-b border-white/10 bg-brand-ink py-20 font-sans text-white sm:py-28">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
         
         {/* Section Header */}
         <FadeIn direction="up">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-white/10 pb-8">
             <div className="space-y-3 max-w-3xl">
-              <div className="text-xs font-semibold text-amber-300 tracking-widest uppercase flex items-center gap-2">
+              <div className="text-xs font-semibold text-brand-copper-light tracking-widest uppercase flex items-center gap-2">
                 <Calculator className="w-4 h-4" />
                 <span>ESTIMADOR DE ALCANCE Y METRAJE DE OBRA</span>
               </div>
-              <h2 className="text-3xl sm:text-5xl font-bold tracking-tight text-white leading-tight">
+              <h2 className="font-editorial text-4xl font-normal leading-tight tracking-tight text-white sm:text-6xl">
                 Planifica tu proyecto con rigor técnico.<br />
                 <span className="text-white/60 font-normal">
                   Configura tipo de obra, metraje y ubicación para proyectar tiempos de ejecución.
@@ -121,11 +121,11 @@ export const ConstructionEstimator: React.FC<ConstructionEstimatorProps> = ({
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           
           {/* Left Column: Form Controls */}
-          <div className="lg:col-span-7 space-y-8 bg-white/5 p-6 sm:p-10 rounded-3xl border border-white/10 backdrop-blur-md">
+          <div className="lg:col-span-7 space-y-8 bg-white/5 p-6 sm:p-10 rounded-2xl border border-white/10">
             
             {/* Step 1: Select Type */}
             <div className="space-y-3">
-              <label className="text-xs font-semibold tracking-wider text-amber-300 uppercase">
+              <label className="text-xs font-semibold tracking-wider text-brand-copper-light uppercase">
                 1. Selecciona la tipología de edificación
               </label>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -138,7 +138,7 @@ export const ConstructionEstimator: React.FC<ConstructionEstimatorProps> = ({
                       onClick={() => handleSelectType(type)}
                       className={`p-4 rounded-2xl text-left border transition-all cursor-pointer flex flex-col justify-between ${
                         isSelected
-                          ? 'border-amber-400 bg-white/15 ring-2 ring-amber-400/50 shadow-lg'
+                          ? 'border-brand-copper-light bg-white/15 ring-2 ring-brand-copper-light/50 shadow-lg'
                           : 'border-white/10 bg-white/[0.02] hover:bg-white/10'
                       }`}
                     >
@@ -157,7 +157,7 @@ export const ConstructionEstimator: React.FC<ConstructionEstimatorProps> = ({
             {/* Step 2: Area Slider */}
             <div className="space-y-4 pt-4 border-t border-white/10">
               <div className="flex items-center justify-between">
-                <label className="text-xs font-semibold tracking-wider text-amber-300 uppercase">
+                <label className="text-xs font-semibold tracking-wider text-brand-copper-light uppercase">
                   2. Metraje estimado a construir / intervenir
                 </label>
                 <div className="px-4 py-1.5 rounded-full bg-white/15 border border-white/20 font-mono font-bold text-sm text-white">
@@ -172,7 +172,7 @@ export const ConstructionEstimator: React.FC<ConstructionEstimatorProps> = ({
                 step={selectedType.id === 'urbanismo' ? 500 : 50}
                 value={area}
                 onChange={(e) => setArea(Number(e.target.value))}
-                className="w-full h-2 bg-white/20 rounded-lg appearance-none cursor-pointer accent-amber-400"
+                className="w-full h-2 bg-white/20 rounded-lg appearance-none cursor-pointer accent-brand-copper-light"
               />
 
               <div className="flex justify-between text-[10px] font-mono text-white/50">
@@ -185,16 +185,16 @@ export const ConstructionEstimator: React.FC<ConstructionEstimatorProps> = ({
             {/* Step 3: Location and Timeline */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4 border-t border-white/10">
               <div className="space-y-2">
-                <label className="text-xs font-semibold tracking-wider text-amber-300 uppercase">
+                <label className="text-xs font-semibold tracking-wider text-brand-copper-light uppercase">
                   3. Ubicación del terreno o inmueble
                 </label>
                 <select
                   value={selectedLocation}
                   onChange={(e) => setSelectedLocation(e.target.value)}
-                  className="w-full p-3 bg-white/10 border border-white/20 rounded-xl text-xs text-white focus:outline-none focus:border-amber-400"
+                  className="w-full p-3 bg-white/10 border border-white/20 rounded-xl text-xs text-white focus:outline-none focus:border-brand-copper-light"
                 >
                   {LOCATIONS.map((loc) => (
-                    <option key={loc} value={loc} className="bg-[#18163f] text-white">
+                    <option key={loc} value={loc} className="bg-brand-ink text-white">
                       {loc}
                     </option>
                   ))}
@@ -202,17 +202,17 @@ export const ConstructionEstimator: React.FC<ConstructionEstimatorProps> = ({
               </div>
 
               <div className="space-y-2">
-                <label className="text-xs font-semibold tracking-wider text-amber-300 uppercase">
+                <label className="text-xs font-semibold tracking-wider text-brand-copper-light uppercase">
                   4. Plazo estimado de inicio
                 </label>
                 <select
                   value={timeline}
                   onChange={(e) => setTimeline(e.target.value)}
-                  className="w-full p-3 bg-white/10 border border-white/20 rounded-xl text-xs text-white focus:outline-none focus:border-amber-400"
+                  className="w-full p-3 bg-white/10 border border-white/20 rounded-xl text-xs text-white focus:outline-none focus:border-brand-copper-light"
                 >
-                  <option value="Inmediato 2026" className="bg-[#18163f] text-white">Inmediato (1er semestre 2026)</option>
-                  <option value="Segundo semestre 2026" className="bg-[#18163f] text-white">Segundo semestre 2026</option>
-                  <option value="Planificación 2027" className="bg-[#18163f] text-white">Planificación 2027</option>
+                  <option value="Inmediato 2026" className="bg-brand-ink text-white">Inmediato (1er semestre 2026)</option>
+                  <option value="Segundo semestre 2026" className="bg-brand-ink text-white">Segundo semestre 2026</option>
+                  <option value="Planificación 2027" className="bg-brand-ink text-white">Planificación 2027</option>
                 </select>
               </div>
             </div>
@@ -220,10 +220,10 @@ export const ConstructionEstimator: React.FC<ConstructionEstimatorProps> = ({
           </div>
 
           {/* Right Column: Dynamic Scope Projection Card */}
-          <div className="lg:col-span-5 bg-gradient-to-br from-white/10 to-white/[0.02] p-8 rounded-3xl border border-white/20 backdrop-blur-xl shadow-2xl space-y-6">
+          <div className="lg:col-span-5 bg-white/5 p-8 rounded-2xl border border-white/15 shadow-lg space-y-6">
             
             <div className="flex items-center justify-between pb-4 border-b border-white/15">
-              <div className="text-xs font-mono font-bold uppercase tracking-wider text-amber-300">
+              <div className="text-xs font-mono font-bold uppercase tracking-wider text-brand-copper-light">
                 PROYECCIÓN TÉCNICA DE ALCANCE
               </div>
               <div className="px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-300 text-[10px] font-semibold">
@@ -235,7 +235,7 @@ export const ConstructionEstimator: React.FC<ConstructionEstimatorProps> = ({
             <div className="grid grid-cols-2 gap-4">
               <div className="p-4 rounded-2xl bg-white/5 border border-white/10">
                 <div className="text-[#86868b] text-[11px] mb-1 flex items-center gap-1.5 text-white/60">
-                  <Clock className="w-3.5 h-3.5 text-amber-300" />
+                  <Clock className="w-3.5 h-3.5 text-brand-copper-light" />
                   <span>Tiempo Estimado</span>
                 </div>
                 <div className="text-2xl sm:text-3xl font-bold font-mono text-white">
@@ -289,7 +289,7 @@ export const ConstructionEstimator: React.FC<ConstructionEstimatorProps> = ({
             {/* CTA Button */}
             <button
               onClick={handleRequestQuote}
-              className="w-full py-4 px-6 rounded-2xl bg-white text-[#18163f] hover:bg-amber-300 font-bold text-sm tracking-wide transition-all shadow-xl flex items-center justify-center gap-2 cursor-pointer"
+              className="w-full py-4 px-6 rounded-2xl bg-white text-[#18163f] hover:bg-brand-copper-light font-bold text-sm tracking-wide transition-all shadow-xl flex items-center justify-center gap-2 cursor-pointer"
             >
               <MessageSquare className="w-4 h-4 text-[#18163f]" />
               <span>Solicitar Reunión de Factibilidad & Estimación de Obra</span>

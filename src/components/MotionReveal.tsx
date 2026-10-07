@@ -57,7 +57,7 @@ export const FadeIn: React.FC<FadeInProps> = ({
       transition={{
         duration: shouldReduceMotion ? 0.01 : duration,
         delay,
-        ease: [0.16, 1, 0.3, 1], // Apple signature cubic bezier
+        ease: [0.16, 1, 0.3, 1], // A restrained easing curve for consistent section reveals
       }}
       className={className}
     >

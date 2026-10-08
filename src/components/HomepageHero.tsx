@@ -93,8 +93,7 @@ export const HomepageHero: React.FC<HomepageHeroProps> = ({
     <div className="relative z-20 mx-auto flex w-full max-w-7xl flex-1 flex-col justify-between px-4 pb-6 pt-7 sm:px-6 sm:pb-8 sm:pt-9 lg:px-8 lg:pb-10 lg:pt-10">
       <div className="flex items-center justify-between gap-4">
         <div className="inline-flex items-center gap-3 text-[10px] font-semibold uppercase tracking-[0.2em] text-white/90 sm:text-xs">
-          <span className="size-2 rounded-full bg-brand-copper-light ring-4 ring-brand-copper-light/20" />
-          <span>GARAM Constructores</span>
+            <span>GARAM Constructores</span>
         </div>
         <p className="hidden text-[10px] font-medium uppercase tracking-[0.2em] text-white/75 sm:block">
           Caracas <span aria-hidden="true">·</span> Galipán · Venezuela

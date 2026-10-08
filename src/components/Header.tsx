@@ -22,7 +22,7 @@ export const Header: React.FC<HeaderProps> = ({
   };
 
   return (
-    <header className="garam-glass-header sticky top-0 z-40 text-brand-ink transition-all">
+    <header className="garam-glass-header sticky top-0 z-40 text-white transition-all">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 sm:h-20 sm:px-6 lg:px-8">
         
         {/* Zone 1: Vector Brand Mark */}
@@ -32,11 +32,11 @@ export const Header: React.FC<HeaderProps> = ({
           className="flex shrink-0 items-center gap-3 rounded-md p-1 transition-transform hover:scale-[1.01] focus:outline-none focus:ring-2 focus:ring-brand-ink/20"
           aria-label="GARAM CONSTRUCTORES Inicio"
         >
-          <GaramLogo variant="dark" size="md" showSubtitles={true} />
+          <GaramLogo variant="white" size="md" showSubtitles={true} />
         </a>
 
         {/* Primary navigation */}
-        <nav className="hidden items-center gap-6 text-[13px] font-medium tracking-wide text-brand-ink/70 xl:flex">
+        <nav className="hidden items-center gap-6 text-[13px] font-medium tracking-wide text-white/70 xl:flex">
           <a
             href="#obras"
             onClick={handleNavClick}
@@ -72,7 +72,7 @@ export const Header: React.FC<HeaderProps> = ({
         <div className="hidden shrink-0 items-center gap-3 xl:flex">
           <button
             onClick={onToggleAiConsultant}
-            className="garam-glass-button garam-glass-button--quiet flex h-10 items-center gap-2 rounded-full px-4 text-xs font-semibold tracking-wide text-brand-ink transition-all"
+            className="garam-glass-button garam-glass-button--quiet flex h-10 items-center gap-2 rounded-full px-4 text-xs font-semibold tracking-wide text-white transition-all"
             title="Asesor Arquitectónico GARAM"
           >
             <Sparkles className="w-3.5 h-3.5 text-brand-copper" />
@@ -92,7 +92,7 @@ export const Header: React.FC<HeaderProps> = ({
         <div className="flex items-center gap-2 xl:hidden">
           <button
             onClick={() => setMobileMenuOpen((open) => !open)}
-            className="garam-glass-button garam-glass-button--quiet rounded-full p-2.5 text-brand-ink transition-all xl:hidden"
+            className="garam-glass-button garam-glass-button--quiet rounded-full p-2.5 text-white transition-all xl:hidden"
             aria-label={mobileMenuOpen ? 'Cerrar menú' : 'Abrir menú'}
             aria-expanded={mobileMenuOpen}
             aria-controls="mobile-navigation"

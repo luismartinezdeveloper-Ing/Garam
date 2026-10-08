@@ -26,11 +26,11 @@ body {
 }
 
 .garam-glass-header {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.68);
-  background: rgba(246, 243, 237, 0.68);
-  box-shadow: 0 10px 30px rgba(37, 34, 90, 0.06), inset 0 -1px rgba(255, 255, 255, 0.4);
-  -webkit-backdrop-filter: saturate(150%) blur(18px);
-  backdrop-filter: saturate(150%) blur(18px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+  background: linear-gradient(180deg, rgba(30, 27, 83, 0.78), rgba(37, 34, 90, 0.44));
+  box-shadow: 0 12px 34px rgba(12, 10, 45, 0.16), inset 0 -1px rgba(255, 255, 255, 0.12);
+  -webkit-backdrop-filter: saturate(155%) blur(20px);
+  backdrop-filter: saturate(155%) blur(20px);
 }
 
 .garam-glass-button {
@@ -46,22 +46,22 @@ body {
 }
 
 .garam-glass-button--quiet {
-  background: rgba(255, 255, 255, 0.34);
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .garam-glass-button--quiet:hover {
-  color: #8b5e3c;
-  background: rgba(255, 255, 255, 0.58);
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.2);
 }
 
 .garam-glass-button--primary {
   border-color: rgba(255, 255, 255, 0.24);
-  background: linear-gradient(135deg, rgba(37, 34, 90, 0.96), rgba(48, 45, 112, 0.82));
-  box-shadow: 0 8px 20px rgba(37, 34, 90, 0.2), inset 0 1px rgba(255, 255, 255, 0.25);
+  background: linear-gradient(135deg, rgba(78, 70, 150, 0.88), rgba(37, 34, 90, 0.74));
+  box-shadow: 0 8px 20px rgba(12, 10, 45, 0.24), inset 0 1px rgba(255, 255, 255, 0.26);
 }
 
 .garam-glass-button--primary:hover {
-  background: linear-gradient(135deg, rgba(48, 45, 112, 0.98), rgba(37, 34, 90, 0.9));
+  background: linear-gradient(135deg, rgba(96, 86, 174, 0.92), rgba(48, 45, 112, 0.82));
 }
 
 .garam-glass-mobile-menu {

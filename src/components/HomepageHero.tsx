@@ -7,7 +7,50 @@ interface HomepageHeroProps {
   onOpenInquiry: () => void;
 }
 
-const HERO_POSTER = '/obras/casa-33-exterior-2-garam.jpeg';
+const HERO_POSTER = '/obras/casa-33-garam.jpeg';
+
+const ArchitecturalBlueprint: React.FC = () => (
+  <svg
+    className="hero-film__blueprint absolute inset-0 size-full text-brand-copper-light"
+    viewBox="0 0 1440 900"
+    preserveAspectRatio="xMidYMid slice"
+  >
+    <g
+      className="hero-blueprint__main"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.75"
+      strokeLinejoin="round"
+      vectorEffect="non-scaling-stroke"
+    >
+      <path pathLength={1} d="M535 654V408H797V328H1065V408H1196V654H535Z" />
+      <path pathLength={1} d="M523 400H808V316H1077V398H1209" />
+      <path pathLength={1} d="M797 329L680 390H535" />
+      <path pathLength={1} d="M545 655H1202" />
+      <path pathLength={1} d="M810 412V653M1074 410V654" />
+      <path pathLength={1} d="M569 445H635V552H569ZM652 445H726V552H652Z" />
+      <path pathLength={1} d="M847 436H900V506H847ZM921 436H979V506H921Z" />
+      <path pathLength={1} d="M844 536H1028V589H844Z" />
+      <path pathLength={1} d="M1095 445H1167V549H1095Z" />
+    </g>
+    <g
+      className="hero-blueprint__details"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1"
+      strokeLinejoin="round"
+      vectorEffect="non-scaling-stroke"
+      opacity="0.72"
+    >
+      <path pathLength={1} d="M498 373V668M486 373H510M486 668H510M477 373H498M477 668H498" />
+      <path pathLength={1} d="M522 694H1209M522 684V704M1209 684V704" />
+      <path pathLength={1} d="M531 357H796M531 351V363M796 351V363" />
+      <path pathLength={1} d="M1092 315V655M1080 315H1104M1080 655H1104" />
+      <path pathLength={1} d="M575 568H631M658 568H721M849 520H1026M1098 562H1163" />
+      <path pathLength={1} d="M733 382V398M745 382V398M757 382V398M769 382V398M781 382V398" />
+    </g>
+  </svg>
+);
 
 const HERO_STATS = [
   { value: String(PROJECTS.length), label: 'obras en portafolio' },
@@ -25,25 +68,29 @@ export const HomepageHero: React.FC<HomepageHeroProps> = ({
     aria-labelledby="homepage-hero-title"
     className="relative isolate flex min-h-[calc(100svh-4rem)] flex-col overflow-hidden bg-brand-ink text-white sm:min-h-[calc(100svh-5rem)]"
   >
-    <img
-      src={HERO_POSTER}
-      alt=""
+    <div className="hero-film absolute inset-0 z-0 overflow-hidden bg-brand-ink" aria-hidden="true">
+      <div className="hero-film__grid absolute inset-0" />
+      <img
+        src={HERO_POSTER}
+        alt=""
+        fetchPriority="high"
+        loading="eager"
+        decoding="async"
+        className="hero-film__photo absolute inset-0 size-full object-cover object-[69%_center]"
+      />
+      <ArchitecturalBlueprint />
+      <span className="hero-film__scanner" />
+    </div>
+    <div
       aria-hidden="true"
-      fetchPriority="high"
-      loading="eager"
-      decoding="async"
-      className="absolute inset-0 size-full object-cover object-[69%_center]"
+      className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-r from-brand-ink/95 via-brand-ink/80 to-brand-ink/30 lg:via-brand-ink/75 lg:to-brand-ink/10"
     />
     <div
       aria-hidden="true"
-      className="absolute inset-0 bg-gradient-to-r from-brand-ink/95 via-brand-ink/80 to-brand-ink/30 lg:via-brand-ink/75 lg:to-brand-ink/10"
-    />
-    <div
-      aria-hidden="true"
-      className="absolute inset-0 bg-gradient-to-t from-brand-ink/85 via-transparent to-brand-ink/30"
+      className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-t from-brand-ink/85 via-transparent to-brand-ink/30"
     />
 
-    <div className="relative mx-auto flex w-full max-w-7xl flex-1 flex-col justify-between px-4 pb-6 pt-7 sm:px-6 sm:pb-8 sm:pt-9 lg:px-8 lg:pb-10 lg:pt-10">
+    <div className="relative z-20 mx-auto flex w-full max-w-7xl flex-1 flex-col justify-between px-4 pb-6 pt-7 sm:px-6 sm:pb-8 sm:pt-9 lg:px-8 lg:pb-10 lg:pt-10">
       <div className="flex items-center justify-between gap-4">
         <div className="inline-flex items-center gap-3 text-[10px] font-semibold uppercase tracking-[0.2em] text-white/90 sm:text-xs">
           <span className="size-2 rounded-full bg-brand-copper-light ring-4 ring-brand-copper-light/20" />
@@ -55,10 +102,15 @@ export const HomepageHero: React.FC<HomepageHeroProps> = ({
       </div>
 
       <div className="max-w-3xl py-12 sm:py-16 lg:py-20">
-        <p className="mb-5 flex items-center gap-3 text-[10px] font-semibold uppercase tracking-[0.2em] text-brand-copper-light sm:text-xs">
-          <span aria-hidden="true" className="h-px w-9 bg-brand-copper-light" />
-          Promoción · Gerencia · Construcción
-        </p>
+        <div className="mb-5 flex flex-wrap items-center gap-x-3 gap-y-2">
+          <p className="flex items-center gap-3 text-[10px] font-semibold uppercase tracking-[0.2em] text-brand-copper-light sm:text-xs">
+            <span aria-hidden="true" className="h-px w-9 bg-brand-copper-light" />
+            Promoción · Gerencia · Construcción
+          </p>
+          <span className="inline-flex items-center gap-2 border border-white/20 bg-brand-ink/35 px-2.5 py-1 text-[9px] font-semibold uppercase tracking-[0.15em] text-white/90 backdrop-blur-sm sm:text-[10px]">
+            Concepto animado · 01
+          </span>
+        </div>
         <h1
           id="homepage-hero-title"
           className="font-editorial text-5xl font-normal leading-[0.98] tracking-tight text-white sm:text-6xl lg:text-7xl xl:text-[5.25rem]"
@@ -121,9 +173,9 @@ export const HomepageHero: React.FC<HomepageHeroProps> = ({
 
         <div className="flex items-center justify-between gap-6 md:flex-col md:items-end md:justify-end">
           <p className="text-[9px] uppercase tracking-[0.16em] text-white/60 sm:text-[10px] md:text-right">
-            Obra en foco
+            Idea 01 · Del plano a la obra
             <span className="mt-1 block font-medium tracking-[0.12em] text-white/90">
-              Casa 33 · Altamira
+              Proyecto real · Casa 33
             </span>
           </p>
           <a

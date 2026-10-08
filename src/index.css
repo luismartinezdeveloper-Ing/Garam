@@ -50,6 +50,163 @@ body {
   }
 }
 
+@keyframes garam-film-photo-reveal {
+  0%,
+  16% {
+    clip-path: inset(0 100% 0 0);
+    opacity: 0.04;
+    transform: scale(1.055);
+  }
+
+  24% {
+    clip-path: inset(0 93% 0 0);
+    opacity: 0.96;
+  }
+
+  70%,
+  84% {
+    clip-path: inset(0);
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  94%,
+  100% {
+    clip-path: inset(0);
+    opacity: 0;
+    transform: scale(1);
+  }
+}
+
+@keyframes garam-blueprint-opacity {
+  0%,
+  16% {
+    opacity: 0.9;
+  }
+
+  24% {
+    opacity: 0.84;
+  }
+
+  70% {
+    opacity: 0.3;
+  }
+
+  84% {
+    opacity: 0.2;
+  }
+
+  94% {
+    opacity: 0.9;
+  }
+
+  100% {
+    opacity: 0.9;
+  }
+}
+
+@keyframes garam-blueprint-draw {
+  0% {
+    stroke-dashoffset: 0.72;
+  }
+
+  31%,
+  78% {
+    stroke-dashoffset: 0;
+  }
+
+  92%,
+  100% {
+    stroke-dashoffset: 1;
+  }
+}
+
+@keyframes garam-film-scan {
+  0%,
+  16% {
+    left: -2%;
+    opacity: 0;
+  }
+
+  24% {
+    left: 4%;
+    opacity: 0.85;
+  }
+
+  68% {
+    left: 100%;
+    opacity: 0.72;
+  }
+
+  76%,
+  100% {
+    left: 104%;
+    opacity: 0;
+  }
+}
+
+.hero-film__grid {
+  background-color: #25225a;
+  background-image:
+    linear-gradient(rgba(214, 178, 141, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(214, 178, 141, 0.1) 1px, transparent 1px),
+    radial-gradient(ellipse at 73% 48%, rgba(65, 79, 134, 0.55), transparent 66%);
+  background-size: 64px 64px, 64px 64px, 100% 100%;
+}
+
+.hero-film__photo {
+  animation: garam-film-photo-reveal 18s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+  will-change: clip-path, opacity, transform;
+}
+
+.hero-film__blueprint {
+  animation: garam-blueprint-opacity 18s ease-in-out infinite;
+}
+
+.hero-film__blueprint path {
+  fill: none;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: garam-blueprint-draw 18s cubic-bezier(0.33, 1, 0.68, 1) infinite;
+}
+
+.hero-film__scanner {
+  position: absolute;
+  top: -4%;
+  bottom: -4%;
+  left: -2%;
+  z-index: 1;
+  width: 1px;
+  background: linear-gradient(transparent, rgba(214, 178, 141, 0.95) 20%, rgba(255, 248, 236, 0.95) 50%, rgba(214, 178, 141, 0.95) 80%, transparent);
+  box-shadow: 0 0 26px 3px rgba(214, 178, 141, 0.28);
+  animation: garam-film-scan 18s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-film__photo {
+    clip-path: none;
+    opacity: 1;
+    transform: none;
+    animation: none !important;
+    will-change: auto;
+  }
+
+  .hero-film__blueprint {
+    opacity: 0;
+    animation: none !important;
+  }
+
+  .hero-film__blueprint path {
+    stroke-dashoffset: 0;
+    animation: none !important;
+  }
+
+  .hero-film__scanner {
+    display: none;
+    animation: none !important;
+  }
+}
+
 @layer utilities {
   .font-editorial {
     font-family: "Iowan Old Style", "Baskerville", "Palatino Linotype", Georgia, serif;

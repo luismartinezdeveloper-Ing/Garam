@@ -63,7 +63,9 @@ body {
 
 .garam-header-logo {
   position: relative;
-  animation: garam-logo-enter 900ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  isolation: isolate;
+  will-change: clip-path, opacity, transform;
+  animation: garam-logo-enter 1050ms 120ms cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 .garam-header-logo::after {
@@ -74,7 +76,13 @@ body {
   height: 1px;
   content: '';
   background: linear-gradient(90deg, rgba(214, 178, 141, 0.95), transparent);
-  animation: garam-logo-line-enter 850ms 180ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  transform-origin: left;
+  animation: garam-logo-line-enter 900ms 420ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.garam-header-logo:focus-visible {
+  outline: 2px solid rgba(214, 178, 141, 0.9);
+  outline-offset: 5px;
 }
 
 .garam-glass-header {

@@ -53,25 +53,11 @@ export const Header: React.FC<HeaderProps> = ({
             Servicios
           </a>
           <a
-            href="#estimador"
-            onClick={handleNavClick}
-            className="hover:text-brand-copper transition-colors py-2"
-          >
-            Estimador
-          </a>
-          <a
             href="#nosotros"
             onClick={handleNavClick}
             className="hover:text-brand-copper transition-colors py-2"
           >
             Nosotros
-          </a>
-          <a
-            href="#identidad"
-            onClick={handleNavClick}
-            className="hover:text-brand-copper transition-colors py-2"
-          >
-            Identidad
           </a>
           <a
             href="#contacto"
@@ -138,28 +124,12 @@ export const Header: React.FC<HeaderProps> = ({
               <ArrowUpRight className="w-4 h-4 text-brand-muted" />
             </a>
             <a
-              href="#estimador"
-              onClick={handleNavClick}
-              className="py-1 flex items-center justify-between hover:text-brand-copper border-b border-brand-stone/70 pb-2"
-            >
-              <span>Calculadora de Estimados</span>
-              <ArrowUpRight className="w-4 h-4 text-brand-muted" />
-            </a>
-            <a
               href="#nosotros"
               onClick={handleNavClick}
               className="py-1 flex items-center justify-between hover:text-brand-copper border-b border-brand-stone/70 pb-2"
             >
               <span>Perfil & Enfoque</span>
               <ArrowUpRight className="w-4 h-4 text-brand-muted" />
-            </a>
-            <a
-              href="#identidad"
-              onClick={handleNavClick}
-              className="flex items-center justify-between border-b border-brand-stone/70 py-2 hover:text-brand-copper"
-            >
-              <span>Identidad de marca</span>
-              <ArrowUpRight className="h-4 w-4 text-brand-muted" />
             </a>
             <a
               href="#contacto"

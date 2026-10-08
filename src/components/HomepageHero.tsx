@@ -145,13 +145,6 @@ export const HomepageHero: React.FC<HomepageHeroProps> = ({
           </button>
         </div>
 
-        <a
-          href="#estimador"
-          className="mt-5 inline-flex items-center gap-2 text-xs font-medium text-white/70 transition-colors hover:text-white sm:text-sm"
-        >
-          Calcular el alcance de una obra
-          <ArrowUpRight aria-hidden="true" className="size-3.5" />
-        </a>
       </div>
 
       <div className="flex flex-col gap-4 border-t border-white/25 pt-4 sm:gap-6 sm:pt-5 md:flex-row md:items-end md:justify-between">

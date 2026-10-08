@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { ChevronRight, ChevronLeft, ArrowUpRight, Building, Sparkles } from 'lucide-react';
+import { ChevronRight, ChevronLeft, ArrowUpRight, Sparkles } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FadeIn, StaggerContainer, StaggerItem } from './MotionReveal';
+import { FadeIn } from './MotionReveal';
 import { PROJECTS } from '../data/portfolioData';
 import { handleImageError } from '../utils/imageFallback';
+import { HomepageHero } from './HomepageHero';
 
 
 interface HeroSectionProps {
@@ -110,69 +111,27 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
   };
 
   return (
-    <section className="relative overflow-hidden border-b border-brand-stone bg-brand-paper pt-7 pb-16 font-sans text-brand-ink sm:pt-9 sm:pb-20">
-      
-      <div className="mx-auto flex max-w-7xl flex-col gap-7 px-4 sm:px-6 lg:px-8">
+    <>
+      <HomepageHero
+        onOpenPresentation={onOpenPresentation}
+        onOpenInquiry={onOpenInquiry}
+      />
+      <section className="relative overflow-hidden border-b border-brand-stone bg-brand-paper py-14 font-sans text-brand-ink sm:py-20">
+        <div className="mx-auto flex max-w-7xl flex-col gap-7 px-4 sm:px-6 lg:px-8">
         
-        {/* Editorial hero introduction */}
-        <div className="grid gap-6 lg:grid-cols-[minmax(0,1.12fr)_minmax(320px,0.88fr)] lg:items-end">
-          <div className="space-y-4">
-            <FadeIn delay={0.1} direction="up">
-              <div className="inline-flex items-center gap-2 border border-brand-stone bg-white px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.12em] text-brand-ink">
-                <span className="size-2 rounded-full bg-brand-copper" />
-                <span>GARAM Constructores · Portafolio 2026</span>
-              </div>
-            </FadeIn>
-
-            <FadeIn delay={0.2} direction="up">
-              <h1 className="max-w-4xl font-editorial text-[2.65rem] font-normal leading-[1.02] tracking-tight text-brand-ink sm:text-5xl lg:text-6xl">
-                Construimos los espacios donde habita la{' '}
-                <span className="italic text-brand-copper">excelencia.</span>
-              </h1>
-            </FadeIn>
+        <FadeIn delay={0.1} direction="up">
+          <div className="max-w-2xl">
+            <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-brand-copper">
+              Portafolio · Caracas y Galipán
+            </p>
+            <h2 className="mt-3 font-editorial text-3xl font-normal leading-tight tracking-tight text-brand-ink sm:text-4xl lg:text-5xl">
+              Obras donde la visión toma forma.
+            </h2>
+            <p className="mt-3 max-w-xl text-sm leading-relaxed text-brand-muted sm:text-base">
+              Un recorrido por los espacios, materiales y decisiones que definen cada proyecto.
+            </p>
           </div>
-
-          <div className="flex flex-col gap-4 lg:max-w-lg lg:justify-self-end">
-            <FadeIn delay={0.25} direction="up">
-              <p className="max-w-xl text-base leading-relaxed text-brand-muted sm:text-lg">
-                Promoción, gerencia y construcción de 11 obras maestras residenciales, comerciales, corporativas y hospitalarias en Caracas y Galipán.
-              </p>
-            </FadeIn>
-
-            <FadeIn delay={0.35} direction="up">
-              <div className="flex flex-col gap-3 sm:flex-row">
-                <button
-                  onClick={onOpenInquiry}
-                  className="inline-flex min-h-12 items-center justify-center gap-2 rounded-md bg-brand-ink px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-brand-ink/90"
-                >
-                  <span>Conversemos sobre tu proyecto</span>
-                  <ChevronRight className="size-4" />
-                </button>
-
-                <a
-                  href="#obras"
-                  onClick={(event) => {
-                    event.preventDefault();
-                    onOpenPresentation();
-                  }}
-                  className="inline-flex min-h-12 items-center justify-center gap-2 rounded-md border border-brand-stone bg-white px-5 py-3 text-sm font-semibold text-brand-ink transition-colors hover:border-brand-copper"
-                >
-                  <Building className="size-4" />
-                  <span>Explorar proyectos</span>
-                </a>
-              </div>
-              <a
-                href="#estimador"
-                className="mt-3 inline-flex items-center gap-2 text-sm font-semibold text-brand-ink underline-offset-4 transition-colors hover:text-brand-copper hover:underline"
-              >
-                <Sparkles className="size-4 text-brand-copper" />
-                <span>Calcular el alcance de una obra</span>
-                <ArrowUpRight className="size-4" />
-              </a>
-            </FadeIn>
-          </div>
-        </div>
-
+        </FadeIn>
 
         {/* Featured project showcase */}
         <FadeIn delay={0.45} direction="up" distance={30}>
@@ -469,57 +428,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
           </div>
         </FadeIn>
 
-        {/* Portfolio metrics */}
-        <StaggerContainer
-          staggerDelay={0.09}
-          className="grid grid-cols-2 border-y border-brand-stone py-3 md:grid-cols-4"
-        >
-          <StaggerItem>
-            <div className="space-y-2 border-b border-brand-stone px-4 py-4 last:border-b-0 md:border-b-0 md:border-r md:last:border-r-0">
-              <div className="font-editorial text-4xl font-normal tracking-tight text-brand-ink sm:text-5xl">
-                11
-              </div>
-              <div className="text-xs text-brand-muted">
-                Obras Mayores en Portafolio
-              </div>
-            </div>
-          </StaggerItem>
-
-          <StaggerItem>
-            <div className="space-y-2 border-b border-brand-stone px-4 py-4 last:border-b-0 md:border-b-0 md:border-r md:last:border-r-0">
-              <div className="font-editorial text-4xl font-normal tracking-tight text-brand-ink sm:text-5xl">
-                +25k m²
-              </div>
-              <div className="text-xs text-brand-muted">
-                Superficie Construida & Urbanizada
-              </div>
-            </div>
-          </StaggerItem>
-
-          <StaggerItem>
-            <div className="space-y-2 border-b border-brand-stone px-4 py-4 last:border-b-0 md:border-b-0 md:border-r md:last:border-r-0">
-              <div className="font-editorial text-4xl font-normal tracking-tight text-brand-ink sm:text-5xl">
-                +15
-              </div>
-              <div className="text-xs text-brand-muted">
-                Años de Trayectoria Constructiva
-              </div>
-            </div>
-          </StaggerItem>
-
-          <StaggerItem>
-            <div className="space-y-2 border-b border-brand-stone px-4 py-4 last:border-b-0 md:border-b-0 md:border-r md:last:border-r-0">
-              <div className="font-editorial text-4xl font-normal tracking-tight text-brand-ink sm:text-5xl">
-                100%
-              </div>
-              <div className="text-xs text-brand-muted">
-                Rigor Técnico y Normativa Estructural
-              </div>
-            </div>
-          </StaggerItem>
-        </StaggerContainer>
-
-      </div>
-    </section>
+        </div>
+      </section>
+    </>
   );
 };

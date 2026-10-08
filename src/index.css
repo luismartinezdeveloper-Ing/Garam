@@ -25,6 +25,58 @@ body {
   color: #25225a;
 }
 
+@keyframes garam-logo-enter {
+  0% {
+    opacity: 0;
+    clip-path: inset(0 100% 0 0);
+    transform: translateX(-14px);
+  }
+  62% {
+    opacity: 1;
+    clip-path: inset(0 0 0 0);
+    transform: translateX(0);
+  }
+  78% {
+    transform: translateX(2px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes garam-logo-line-enter {
+  0% {
+    transform: scaleX(0);
+    transform-origin: left;
+    opacity: 0;
+  }
+  45% {
+    transform: scaleX(0);
+    opacity: 1;
+  }
+  100% {
+    transform: scaleX(1);
+    transform-origin: left;
+    opacity: 1;
+  }
+}
+
+.garam-header-logo {
+  position: relative;
+  animation: garam-logo-enter 900ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.garam-header-logo::after {
+  position: absolute;
+  bottom: -3px;
+  left: 1px;
+  width: 42%;
+  height: 1px;
+  content: '';
+  background: linear-gradient(90deg, rgba(214, 178, 141, 0.95), transparent);
+  animation: garam-logo-line-enter 850ms 180ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
 .garam-glass-header {
   border-bottom: 1px solid rgba(255, 255, 255, 0.16);
   background: linear-gradient(180deg, rgba(30, 27, 83, 0.78), rgba(37, 34, 90, 0.44));
@@ -231,6 +283,11 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .garam-header-logo,
+  .garam-header-logo::after {
+    animation: none;
+  }
+
   .hero-film__photo {
     clip-path: none;
     opacity: 1;

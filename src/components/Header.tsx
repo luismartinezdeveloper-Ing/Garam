@@ -32,7 +32,7 @@ export const Header: React.FC<HeaderProps> = ({
           className="flex shrink-0 items-center gap-3 rounded-md p-1 transition-transform hover:scale-[1.01] focus:outline-none focus:ring-2 focus:ring-brand-ink/20"
           aria-label="GARAM CONSTRUCTORES Inicio"
         >
-          <GaramLogo variant="white" size="md" showSubtitles={true} />
+          <GaramLogo variant="white" size="lg" showSubtitles={true} className="garam-header-logo" />
         </a>
 
         {/* Primary navigation */}

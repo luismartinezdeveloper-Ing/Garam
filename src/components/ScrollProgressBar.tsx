@@ -4,7 +4,7 @@ import { motion, useScroll, useSpring } from 'framer-motion';
 export const ScrollProgressBar: React.FC = () => {
   const { scrollYProgress } = useScroll();
 
-  // Smooth spring interpolation inspired by Apple UI fluidity
+  // Smooth spring interpolation for a restrained progress indicator
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 120,
     damping: 30,
@@ -18,7 +18,7 @@ export const ScrollProgressBar: React.FC = () => {
     >
       <motion.div
         style={{ scaleX }}
-        className="h-full w-full origin-left bg-gradient-to-r from-[#25225a] via-[#1d4ed8] to-[#25225a] shadow-[0_1px_6px_rgba(37,34,90,0.35)]"
+        className="h-full w-full origin-left bg-brand-copper"
       />
     </div>
   );

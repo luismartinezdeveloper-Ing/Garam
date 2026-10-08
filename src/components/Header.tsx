@@ -22,80 +22,80 @@ export const Header: React.FC<HeaderProps> = ({
   };
 
   return (
-    <header className="sticky top-0 z-40 bg-white/85 backdrop-blur-xl border-b border-[#e5e5ea]/80 text-[#25225a] transition-all">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 sm:h-22 flex items-center justify-between gap-6">
+    <header className="sticky top-0 z-40 border-b border-brand-stone bg-brand-paper/95 text-brand-ink backdrop-blur-md transition-all">
+      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 sm:h-20 sm:px-6 lg:px-8">
         
         {/* Zone 1: Vector Brand Mark */}
         <a
           href="#"
           onClick={handleNavClick}
-          className="flex items-center gap-3 focus:outline-none focus:ring-2 focus:ring-[#25225a]/20 rounded-xl p-1 transition-transform hover:scale-[1.01]"
+          className="flex shrink-0 items-center gap-3 rounded-md p-1 transition-transform hover:scale-[1.01] focus:outline-none focus:ring-2 focus:ring-brand-ink/20"
           aria-label="GARAM CONSTRUCTORES Inicio"
         >
           <GaramLogo variant="dark" size="md" showSubtitles={true} />
         </a>
 
-        {/* Zone 2: Navigation Links (Airy, Generous Kerning & Apple Typography) */}
-        <nav className="hidden lg:flex items-center gap-9 text-[13px] font-medium tracking-wide text-[#25225a]/70">
+        {/* Primary navigation */}
+        <nav className="hidden items-center gap-6 text-[13px] font-medium tracking-wide text-brand-ink/70 xl:flex">
           <a
             href="#obras"
             onClick={handleNavClick}
-            className="hover:text-[#25225a] transition-colors py-2 relative group"
+            className="hover:text-brand-copper transition-colors py-2 relative group"
           >
             <span>Obras</span>
-            <span className="ml-1 text-[10px] font-mono text-[#86868b] group-hover:text-[#25225a]">(11)</span>
+            <span className="ml-1 text-[10px] font-mono text-brand-muted group-hover:text-brand-copper">(11)</span>
           </a>
           <a
             href="#servicios"
             onClick={handleNavClick}
-            className="hover:text-[#25225a] transition-colors py-2"
+            className="hover:text-brand-copper transition-colors py-2"
           >
             Servicios
           </a>
           <a
             href="#estimador"
             onClick={handleNavClick}
-            className="hover:text-[#25225a] transition-colors py-2"
+            className="hover:text-brand-copper transition-colors py-2"
           >
             Estimador
           </a>
           <a
             href="#nosotros"
             onClick={handleNavClick}
-            className="hover:text-[#25225a] transition-colors py-2"
+            className="hover:text-brand-copper transition-colors py-2"
           >
             Nosotros
           </a>
           <a
             href="#identidad"
             onClick={handleNavClick}
-            className="hover:text-[#25225a] transition-colors py-2"
+            className="hover:text-brand-copper transition-colors py-2"
           >
             Identidad
           </a>
           <a
             href="#contacto"
             onClick={handleNavClick}
-            className="hover:text-[#25225a] transition-colors py-2"
+            className="hover:text-brand-copper transition-colors py-2"
           >
             Contacto
           </a>
         </nav>
 
         {/* Zone 3: Unified Action Buttons (Consistent Height & Visual Hierarchy) */}
-        <div className="hidden sm:flex items-center gap-3 shrink-0">
+        <div className="hidden shrink-0 items-center gap-3 xl:flex">
           <button
             onClick={onToggleAiConsultant}
-            className="h-10 px-4 text-xs font-semibold tracking-wide rounded-full bg-[#f5f5f7] text-[#25225a] hover:bg-[#ebebf0] hover:text-[#25225a] transition-all flex items-center gap-2 cursor-pointer border border-transparent hover:border-[#e5e5ea]"
+            className="h-10 px-4 text-xs font-semibold tracking-wide rounded-md bg-brand-paper text-brand-ink hover:bg-brand-stone/40 hover:text-brand-copper transition-all flex items-center gap-2 cursor-pointer border border-transparent hover:border-brand-stone"
             title="Asesor Arquitectónico GARAM"
           >
-            <Sparkles className="w-3.5 h-3.5 text-amber-600" />
+            <Sparkles className="w-3.5 h-3.5 text-brand-copper" />
             <span>Asesor Virtual</span>
           </button>
 
           <button
             onClick={onOpenInquiry}
-            className="h-10 px-5 text-xs font-semibold tracking-wide rounded-full bg-[#25225a] text-white hover:bg-[#1d1b46] transition-all flex items-center gap-2 shadow-xs hover:shadow-md active:scale-98 cursor-pointer"
+            className="h-10 px-5 text-xs font-semibold tracking-wide rounded-md bg-brand-ink text-white hover:bg-brand-ink/90 transition-all flex items-center gap-2 shadow-xs hover:shadow-md active:scale-98 cursor-pointer"
           >
             <MessageSquarePlus className="w-3.5 h-3.5" />
             <span>Consulta de Factibilidad</span>
@@ -103,11 +103,13 @@ export const Header: React.FC<HeaderProps> = ({
         </div>
 
         {/* Mobile Hamburger Toggle */}
-        <div className="flex lg:hidden items-center gap-2">
+        <div className="flex items-center gap-2 xl:hidden">
           <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="p-2.5 text-[#25225a] rounded-xl bg-[#f5f5f7] hover:bg-[#ebebed] transition-colors cursor-pointer"
-            aria-label="Abrir menú"
+            onClick={() => setMobileMenuOpen((open) => !open)}
+            className="rounded-md bg-white p-2.5 text-brand-ink transition-colors hover:bg-brand-stone/40 xl:hidden"
+            aria-label={mobileMenuOpen ? 'Cerrar menú' : 'Abrir menú'}
+            aria-expanded={mobileMenuOpen}
+            aria-controls="mobile-navigation"
           >
             {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
@@ -117,58 +119,66 @@ export const Header: React.FC<HeaderProps> = ({
 
       {/* Mobile Menu Drawer */}
       {mobileMenuOpen && (
-        <div className="lg:hidden bg-white/95 backdrop-blur-2xl border-b border-[#e5e5ea] px-6 py-6 space-y-6 animate-fade-in font-sans">
-          <nav className="flex flex-col space-y-4 text-sm font-semibold text-[#25225a]">
+        <div id="mobile-navigation" className="xl:hidden animate-fade-in border-b border-brand-stone bg-brand-paper px-4 py-5 font-sans sm:px-6">
+          <nav className="flex flex-col gap-3 text-sm font-semibold text-brand-ink">
             <a
               href="#obras"
               onClick={handleNavClick}
-              className="py-1 flex items-center justify-between hover:text-blue-900 border-b border-[#f5f5f7] pb-2"
+              className="py-1 flex items-center justify-between hover:text-brand-copper border-b border-brand-stone/70 pb-2"
             >
               <span>Obras Emblemáticas</span>
-              <span className="text-xs font-mono text-[#86868b]">11 Proyectos</span>
+              <span className="text-xs font-mono text-brand-muted">11 Proyectos</span>
             </a>
             <a
               href="#servicios"
               onClick={handleNavClick}
-              className="py-1 flex items-center justify-between hover:text-blue-900 border-b border-[#f5f5f7] pb-2"
+              className="py-1 flex items-center justify-between hover:text-brand-copper border-b border-brand-stone/70 pb-2"
             >
               <span>Disciplinas y Servicios</span>
-              <ArrowUpRight className="w-4 h-4 text-[#86868b]" />
+              <ArrowUpRight className="w-4 h-4 text-brand-muted" />
             </a>
             <a
               href="#estimador"
               onClick={handleNavClick}
-              className="py-1 flex items-center justify-between hover:text-blue-900 border-b border-[#f5f5f7] pb-2"
+              className="py-1 flex items-center justify-between hover:text-brand-copper border-b border-brand-stone/70 pb-2"
             >
               <span>Calculadora de Estimados</span>
-              <ArrowUpRight className="w-4 h-4 text-[#86868b]" />
+              <ArrowUpRight className="w-4 h-4 text-brand-muted" />
             </a>
             <a
               href="#nosotros"
               onClick={handleNavClick}
-              className="py-1 flex items-center justify-between hover:text-blue-900 border-b border-[#f5f5f7] pb-2"
+              className="py-1 flex items-center justify-between hover:text-brand-copper border-b border-brand-stone/70 pb-2"
             >
               <span>Perfil & Enfoque</span>
-              <ArrowUpRight className="w-4 h-4 text-[#86868b]" />
+              <ArrowUpRight className="w-4 h-4 text-brand-muted" />
+            </a>
+            <a
+              href="#identidad"
+              onClick={handleNavClick}
+              className="flex items-center justify-between border-b border-brand-stone/70 py-2 hover:text-brand-copper"
+            >
+              <span>Identidad de marca</span>
+              <ArrowUpRight className="h-4 w-4 text-brand-muted" />
             </a>
             <a
               href="#contacto"
               onClick={handleNavClick}
-              className="py-1 flex items-center justify-between hover:text-blue-900"
+              className="flex items-center justify-between py-2 hover:text-brand-copper"
             >
               <span>Contacto Directo</span>
-              <ArrowUpRight className="w-4 h-4 text-[#86868b]" />
+              <ArrowUpRight className="w-4 h-4 text-brand-muted" />
             </a>
           </nav>
 
           {/* Mobile Actions */}
-          <div className="pt-2 flex flex-col gap-3">
+          <div className="flex flex-col gap-3 pt-3">
             <button
               onClick={() => {
                 setMobileMenuOpen(false);
                 onOpenInquiry();
               }}
-              className="w-full h-11 rounded-full bg-[#25225a] text-white text-xs font-semibold tracking-wide flex items-center justify-center gap-2 shadow-sm"
+              className="w-full h-11 rounded-md bg-brand-ink text-white text-xs font-semibold tracking-wide flex items-center justify-center gap-2 shadow-sm"
             >
               <MessageSquarePlus className="w-4 h-4" />
               <span>Reunión Técnica de Factibilidad</span>
@@ -179,9 +189,9 @@ export const Header: React.FC<HeaderProps> = ({
                 setMobileMenuOpen(false);
                 onToggleAiConsultant();
               }}
-              className="w-full h-11 rounded-full bg-[#f5f5f7] text-[#25225a] text-xs font-semibold tracking-wide flex items-center justify-center gap-2"
+              className="w-full h-11 rounded-md bg-brand-paper text-brand-ink text-xs font-semibold tracking-wide flex items-center justify-center gap-2"
             >
-              <Sparkles className="w-4 h-4 text-amber-600" />
+              <Sparkles className="w-4 h-4 text-brand-copper" />
               <span>Consultar con Asesor Virtual</span>
             </button>
           </div>

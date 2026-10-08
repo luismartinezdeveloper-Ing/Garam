@@ -69,17 +69,17 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className="relative w-full max-w-5xl my-auto ios-glass-modal rounded-3xl overflow-hidden flex flex-col max-h-[92vh] cursor-default"
+        className="relative w-full max-w-5xl my-auto ios-glass-modal rounded-2xl overflow-hidden flex flex-col max-h-[92vh] cursor-default"
       >
         
         {/* Top Sticky Header */}
-        <div className="sticky top-0 z-20 ios-glass px-6 py-4 flex items-center justify-between border-b border-[#e5e5ea]/80">
+        <div className="sticky top-0 z-20 ios-glass px-6 py-4 flex items-center justify-between border-b border-brand-stone/80">
           <div className="flex items-center gap-3">
-            <span className="text-xs font-semibold text-[#25225a] tracking-wider uppercase">
+            <span className="text-xs font-semibold text-brand-ink tracking-wider uppercase">
               PROYECTO {project.number}
             </span>
             <span className="text-[#86868b]">|</span>
-            <span className="text-xs font-medium text-[#6e6e73]">
+            <span className="text-xs font-medium text-brand-muted">
               {project.category}
             </span>
           </div>
@@ -87,7 +87,7 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
           <div className="flex items-center gap-3">
             <button
               onClick={onClose}
-              className="p-1.5 text-[#6e6e73] hover:text-[#25225a] hover:bg-[#f5f5f7] rounded-full transition-colors cursor-pointer"
+              className="p-1.5 text-brand-muted hover:text-brand-ink hover:bg-brand-paper rounded-full transition-colors cursor-pointer"
               aria-label="Cerrar ficha"
             >
               <X className="w-5 h-5" />
@@ -99,20 +99,20 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
         <div className="p-6 sm:p-10 overflow-y-auto space-y-8">
           
           {/* Main Title & Slogan */}
-          <div className="space-y-2 border-b border-[#e5e5ea] pb-6">
-            <h2 className="text-3xl sm:text-5xl font-bold tracking-tight text-[#25225a]">
+          <div className="space-y-2 border-b border-brand-stone pb-6">
+            <h2 className="font-editorial text-4xl font-normal tracking-tight text-brand-ink sm:text-6xl">
               {project.title}
             </h2>
-            <p className="text-base sm:text-lg text-[#6e6e73] font-normal">
+            <p className="text-base sm:text-lg text-brand-muted font-normal">
               "{project.subtitle}"
             </p>
           </div>
 
           {/* Technical Spec Sheet Grid */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 p-6 bg-[#f5f5f7] rounded-2xl border border-[#e5e5ea] text-xs">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 p-6 bg-brand-paper rounded-2xl border border-brand-stone text-xs">
             <div>
               <div className="text-[#86868b] mb-1">Ubicación</div>
-              <div className="font-semibold text-[#25225a] flex items-center gap-1">
+              <div className="font-semibold text-brand-ink flex items-center gap-1">
                 <MapPin className="w-3.5 h-3.5 shrink-0" />
                 <span>{project.location}</span>
               </div>
@@ -120,7 +120,7 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
 
             <div>
               <div className="text-[#86868b] mb-1">Área Construida</div>
-              <div className="font-semibold text-[#25225a] flex items-center gap-1">
+              <div className="font-semibold text-brand-ink flex items-center gap-1">
                 <Maximize2 className="w-3.5 h-3.5 shrink-0" />
                 <span>{project.area}</span>
               </div>
@@ -129,7 +129,7 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
             {project.parcelArea && (
               <div>
                 <div className="text-[#86868b] mb-1">Parcela</div>
-                <div className="font-semibold text-[#25225a]">{project.parcelArea}</div>
+                <div className="font-semibold text-brand-ink">{project.parcelArea}</div>
               </div>
             )}
 
@@ -144,7 +144,7 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
 
           {/* Media Gallery / Photography Viewer */}
           <div className="space-y-4">
-            <div className="text-xs font-semibold text-[#6e6e73] flex items-center justify-between">
+            <div className="text-xs font-semibold text-brand-muted flex items-center justify-between">
               <span>REGISTRO FOTOGRÁFICO DE OBRA ({project.gallery.length} FOTOGRAFÍAS)</span>
               <span className="hidden sm:inline">{project.location}</span>
             </div>
@@ -161,7 +161,7 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
                 ) : (
                   <div
                     onClick={() => setIsLightboxOpen(true)}
-                    className="relative aspect-[16/9] rounded-2xl bg-slate-900 overflow-hidden border border-[#e5e5ea] shadow-xl group cursor-zoom-in"
+                    className="relative aspect-[16/9] rounded-2xl bg-slate-900 overflow-hidden border border-brand-stone shadow-xl group cursor-zoom-in"
                     title="Haz clic para ampliar a pantalla completa"
                   >
                     <img
@@ -214,8 +214,8 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
                     onClick={() => setActiveMediaIdx(idx)}
                     className={`relative aspect-[16/10] rounded-xl overflow-hidden transition-all border cursor-pointer group ${
                       activeMediaIdx === idx
-                        ? 'border-[#25225a] ring-2 ring-[#25225a] opacity-100 scale-[1.02]'
-                        : 'border-[#e5e5ea] opacity-65 hover:opacity-100 hover:border-[#25225a]/50'
+                        ? 'border-brand-ink ring-2 ring-brand-ink opacity-100 scale-[1.02]'
+                        : 'border-brand-stone opacity-65 hover:opacity-100 hover:border-brand-ink/50'
                     }`}
                   >
                     <img
@@ -234,27 +234,27 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
           </div>
 
           {/* Memoria Descriptiva & Specs */}
-          <div className="space-y-8 pt-4 border-t border-[#e5e5ea]">
+          <div className="space-y-8 pt-4 border-t border-brand-stone">
             
             {/* Top Grid: Memoria & Side Specs */}
             <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
               <div className="md:col-span-7 space-y-4">
                 <div className="text-xs font-semibold text-[#86868b] tracking-wider uppercase flex items-center gap-2">
-                  <Compass className="w-3.5 h-3.5 text-[#25225a]" />
+                  <Compass className="w-3.5 h-3.5 text-brand-ink" />
                   <span>CONCEPTO & MEMORIA DESCRIPTIVA</span>
                 </div>
-                <h3 className="text-2xl sm:text-3xl font-bold tracking-tight text-[#25225a]">
+                <h3 className="font-editorial text-3xl font-normal tracking-tight text-brand-ink sm:text-4xl">
                   Arquitectura pensada desde la materia y el lugar.
                 </h3>
-                <p className="text-sm sm:text-base text-[#6e6e73] leading-relaxed font-normal">
+                <p className="text-sm sm:text-base text-brand-muted leading-relaxed font-normal">
                   {project.memoria}
                 </p>
 
                 {/* Reto de Ingeniería & Desafío Estructural (Fase 1) */}
                 {project.engineeringChallenge && (
-                  <div className="mt-6 p-5 sm:p-6 bg-[#25225a] text-white rounded-2xl shadow-sm space-y-2">
-                    <div className="flex items-center gap-2 text-xs font-bold text-amber-400 tracking-wider uppercase font-mono">
-                      <HardHat className="w-4 h-4 text-amber-400" />
+                  <div className="mt-6 p-5 sm:p-6 bg-brand-ink text-white rounded-2xl shadow-sm space-y-2">
+                    <div className="flex items-center gap-2 text-xs font-bold text-brand-copper-light tracking-wider uppercase font-mono">
+                      <HardHat className="w-4 h-4 text-brand-copper-light" />
                       <span>Reto de Ingeniería & Solución Estructural</span>
                     </div>
                     <p className="text-xs sm:text-sm text-white/90 leading-relaxed font-normal">
@@ -264,26 +264,26 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
                 )}
               </div>
 
-              <div className="md:col-span-5 space-y-6 bg-[#fbfbfd] p-6 rounded-2xl border border-[#e5e5ea]">
+              <div className="md:col-span-5 space-y-6 bg-white p-6 rounded-2xl border border-brand-stone">
                 <div className="space-y-3">
-                  <h4 className="text-xs font-semibold uppercase tracking-wider text-[#25225a]">
+                  <h4 className="text-xs font-semibold uppercase tracking-wider text-brand-ink">
                     Especificaciones Clave:
                   </h4>
-                  <ul className="space-y-2 text-xs text-[#6e6e73]">
+                  <ul className="space-y-2 text-xs text-brand-muted">
                     {project.keyFeatures.map((feature, idx) => (
                       <li key={idx} className="flex items-start gap-2">
-                        <CheckCircle2 className="w-3.5 h-3.5 text-[#25225a] shrink-0 mt-0.5" />
+                        <CheckCircle2 className="w-3.5 h-3.5 text-brand-ink shrink-0 mt-0.5" />
                         <span>{feature}</span>
                       </li>
                     ))}
                   </ul>
                 </div>
 
-                <div className="space-y-2 pt-4 border-t border-[#e5e5ea]">
-                  <h4 className="text-xs font-semibold uppercase tracking-wider text-[#25225a]">
+                <div className="space-y-2 pt-4 border-t border-brand-stone">
+                  <h4 className="text-xs font-semibold uppercase tracking-wider text-brand-ink">
                     Materialidad Resumen:
                   </h4>
-                  <div className="flex flex-wrap gap-x-2 gap-y-1 text-xs text-[#25225a]">
+                  <div className="flex flex-wrap gap-x-2 gap-y-1 text-xs text-brand-ink">
                     {project.materials.map((mat, idx) => (
                       <span key={idx}>
                         {mat}
@@ -297,13 +297,13 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
 
             {/* Desglose de Materialidad Noble & Artesanía Constructiva (Fase 1) */}
             {project.detailedMaterials && project.detailedMaterials.length > 0 && (
-              <div className="space-y-4 pt-6 border-t border-[#e5e5ea]">
+              <div className="space-y-4 pt-6 border-t border-brand-stone">
                 <div className="flex items-center justify-between">
                   <div>
-                    <h4 className="text-lg font-bold text-[#25225a] tracking-tight">
+                    <h4 className="text-lg font-bold text-brand-ink tracking-tight">
                       Materialidad & Especificación Técnica
                     </h4>
-                    <p className="text-xs text-[#6e6e73]">
+                    <p className="text-xs text-brand-muted">
                       Catálogo de materiales nobles, ensayos y métodos constructivos aplicados en la obra.
                     </p>
                   </div>
@@ -316,29 +316,29 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
                   {project.detailedMaterials.map((item, idx) => (
                     <div
                       key={idx}
-                      className="p-4 sm:p-5 bg-white rounded-2xl border border-[#e5e5ea] space-y-2.5 shadow-2xs hover:border-[#25225a]/30 transition-all"
+                      className="p-4 sm:p-5 bg-white rounded-2xl border border-brand-stone space-y-2.5 shadow-2xs hover:border-brand-ink/30 transition-all"
                     >
                       <div className="flex items-center justify-between">
                         <span className="text-[10px] font-mono text-[#86868b] uppercase font-semibold">
                           0{idx + 1} · Material
                         </span>
-                        <span className="w-1.5 h-1.5 rounded-full bg-[#25225a]" />
+                        <span className="w-1.5 h-1.5 rounded-full bg-brand-ink" />
                       </div>
 
-                      <h5 className="text-sm font-bold text-[#25225a]">
+                      <h5 className="text-sm font-bold text-brand-ink">
                         {item.name}
                       </h5>
 
                       <div className="space-y-1 text-xs">
                         <div className="text-[#86868b] text-[11px] font-medium">Especificación:</div>
-                        <div className="text-[#25225a] font-mono text-[11px] bg-[#f5f5f7] p-2 rounded-lg leading-relaxed">
+                        <div className="text-brand-ink font-mono text-[11px] bg-brand-paper p-2 rounded-lg leading-relaxed">
                           {item.spec}
                         </div>
                       </div>
 
                       <div className="space-y-1 text-xs pt-1">
                         <div className="text-[#86868b] text-[11px] font-medium">Aplicación en obra:</div>
-                        <div className="text-[#6e6e73] text-xs leading-relaxed">
+                        <div className="text-brand-muted text-xs leading-relaxed">
                           {item.application}
                         </div>
                       </div>
@@ -353,7 +353,7 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
         </div>
 
         {/* Modal Footer Actions */}
-        <div className="p-4 sm:p-6 bg-[#f5f5f7] border-t border-[#e5e5ea] flex flex-wrap items-center justify-between gap-4">
+        <div className="p-4 sm:p-6 bg-brand-paper border-t border-brand-stone flex flex-wrap items-center justify-between gap-4">
           <div className="text-xs text-[#86868b]">
             GARAM CONSTRUCTORES · PORTAFOLIO 2026
           </div>
@@ -361,7 +361,7 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
           <div className="flex items-center gap-3">
             <button
               onClick={onClose}
-              className="px-6 py-2.5 text-xs font-semibold rounded-full bg-[#25225a] text-white hover:bg-[#1d1b46] transition-all cursor-pointer shadow-sm"
+              className="px-6 py-2.5 text-xs font-semibold rounded-full bg-brand-ink text-white hover:bg-brand-ink/90 transition-all cursor-pointer shadow-sm"
             >
               Cerrar Ficha de Obra
             </button>
@@ -386,7 +386,7 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
             className="flex items-center justify-between gap-4 p-3 bg-white/10 backdrop-blur-md rounded-2xl border border-white/15 text-white z-20 shrink-0"
           >
             <div className="flex items-center gap-3">
-              <span className="text-xs font-bold tracking-wider text-amber-400 flex items-center gap-1.5 uppercase">
+              <span className="text-xs font-bold tracking-wider text-brand-copper-light flex items-center gap-1.5 uppercase">
                 <Sparkles className="w-3.5 h-3.5" />
                 <span>Visor 8K Ultra-HD</span>
               </span>
@@ -395,7 +395,7 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
                 {project.title} · Foto {activeMediaIdx + 1} de {project.gallery.length}
               </span>
               {activeMedia?.resolution && (
-                <span className="px-2 py-0.5 rounded-full bg-amber-500/30 border border-amber-500/40 text-amber-300 text-[10px] font-mono font-semibold hidden md:inline">
+                <span className="px-2 py-0.5 rounded-full bg-brand-copper-light/30 border border-brand-copper-light/40 text-brand-copper-light text-[10px] font-mono font-semibold hidden md:inline">
                   {activeMedia.resolution}
                 </span>
               )}
@@ -514,7 +514,7 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
               <div className="text-[11px] font-mono text-white/60 flex items-center gap-2">
                 <span>{project.location}</span>
                 <span>·</span>
-                <span className="text-amber-300 font-bold">GARAM 8K MASTER ARCHIVE</span>
+                <span className="text-brand-copper-light font-bold">GARAM 8K MASTER ARCHIVE</span>
               </div>
             </div>
 

@@ -22,21 +22,21 @@ export const Header: React.FC<HeaderProps> = ({
   };
 
   return (
-    <header className="sticky top-0 z-40 border-b border-brand-stone bg-brand-paper/95 text-brand-ink backdrop-blur-md transition-all">
+    <header className="garam-glass-header sticky top-0 z-40 text-white transition-all">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 sm:h-20 sm:px-6 lg:px-8">
         
         {/* Zone 1: Vector Brand Mark */}
         <a
-          href="#"
+          href="#inicio"
           onClick={handleNavClick}
           className="flex shrink-0 items-center gap-3 rounded-md p-1 transition-transform hover:scale-[1.01] focus:outline-none focus:ring-2 focus:ring-brand-ink/20"
           aria-label="GARAM CONSTRUCTORES Inicio"
         >
-          <GaramLogo variant="dark" size="md" showSubtitles={true} />
+          <GaramLogo variant="white" size="lg" showSubtitles={true} className="garam-header-logo" />
         </a>
 
         {/* Primary navigation */}
-        <nav className="hidden items-center gap-6 text-[13px] font-medium tracking-wide text-brand-ink/70 xl:flex">
+        <nav className="hidden items-center gap-6 text-[13px] font-medium tracking-wide text-white/70 xl:flex">
           <a
             href="#obras"
             onClick={handleNavClick}
@@ -53,25 +53,11 @@ export const Header: React.FC<HeaderProps> = ({
             Servicios
           </a>
           <a
-            href="#estimador"
-            onClick={handleNavClick}
-            className="hover:text-brand-copper transition-colors py-2"
-          >
-            Estimador
-          </a>
-          <a
             href="#nosotros"
             onClick={handleNavClick}
             className="hover:text-brand-copper transition-colors py-2"
           >
             Nosotros
-          </a>
-          <a
-            href="#identidad"
-            onClick={handleNavClick}
-            className="hover:text-brand-copper transition-colors py-2"
-          >
-            Identidad
           </a>
           <a
             href="#contacto"
@@ -86,7 +72,7 @@ export const Header: React.FC<HeaderProps> = ({
         <div className="hidden shrink-0 items-center gap-3 xl:flex">
           <button
             onClick={onToggleAiConsultant}
-            className="h-10 px-4 text-xs font-semibold tracking-wide rounded-md bg-brand-paper text-brand-ink hover:bg-brand-stone/40 hover:text-brand-copper transition-all flex items-center gap-2 cursor-pointer border border-transparent hover:border-brand-stone"
+            className="garam-glass-button garam-glass-button--quiet flex h-10 items-center gap-2 rounded-full px-4 text-xs font-semibold tracking-wide text-white transition-all"
             title="Asesor Arquitectónico GARAM"
           >
             <Sparkles className="w-3.5 h-3.5 text-brand-copper" />
@@ -95,7 +81,7 @@ export const Header: React.FC<HeaderProps> = ({
 
           <button
             onClick={onOpenInquiry}
-            className="h-10 px-5 text-xs font-semibold tracking-wide rounded-md bg-brand-ink text-white hover:bg-brand-ink/90 transition-all flex items-center gap-2 shadow-xs hover:shadow-md active:scale-98 cursor-pointer"
+            className="garam-glass-button garam-glass-button--primary flex h-10 items-center gap-2 rounded-full px-5 text-xs font-semibold tracking-wide text-white transition-all active:scale-[0.98]"
           >
             <MessageSquarePlus className="w-3.5 h-3.5" />
             <span>Consulta de Factibilidad</span>
@@ -106,7 +92,7 @@ export const Header: React.FC<HeaderProps> = ({
         <div className="flex items-center gap-2 xl:hidden">
           <button
             onClick={() => setMobileMenuOpen((open) => !open)}
-            className="rounded-md bg-white p-2.5 text-brand-ink transition-colors hover:bg-brand-stone/40 xl:hidden"
+            className="garam-glass-button garam-glass-button--quiet rounded-full p-2.5 text-white transition-all xl:hidden"
             aria-label={mobileMenuOpen ? 'Cerrar menú' : 'Abrir menú'}
             aria-expanded={mobileMenuOpen}
             aria-controls="mobile-navigation"
@@ -119,7 +105,7 @@ export const Header: React.FC<HeaderProps> = ({
 
       {/* Mobile Menu Drawer */}
       {mobileMenuOpen && (
-        <div id="mobile-navigation" className="xl:hidden animate-fade-in border-b border-brand-stone bg-brand-paper px-4 py-5 font-sans sm:px-6">
+        <div id="mobile-navigation" className="garam-glass-mobile-menu animate-fade-in px-4 py-5 font-sans sm:px-6 xl:hidden">
           <nav className="flex flex-col gap-3 text-sm font-semibold text-brand-ink">
             <a
               href="#obras"
@@ -138,28 +124,12 @@ export const Header: React.FC<HeaderProps> = ({
               <ArrowUpRight className="w-4 h-4 text-brand-muted" />
             </a>
             <a
-              href="#estimador"
-              onClick={handleNavClick}
-              className="py-1 flex items-center justify-between hover:text-brand-copper border-b border-brand-stone/70 pb-2"
-            >
-              <span>Calculadora de Estimados</span>
-              <ArrowUpRight className="w-4 h-4 text-brand-muted" />
-            </a>
-            <a
               href="#nosotros"
               onClick={handleNavClick}
               className="py-1 flex items-center justify-between hover:text-brand-copper border-b border-brand-stone/70 pb-2"
             >
               <span>Perfil & Enfoque</span>
               <ArrowUpRight className="w-4 h-4 text-brand-muted" />
-            </a>
-            <a
-              href="#identidad"
-              onClick={handleNavClick}
-              className="flex items-center justify-between border-b border-brand-stone/70 py-2 hover:text-brand-copper"
-            >
-              <span>Identidad de marca</span>
-              <ArrowUpRight className="h-4 w-4 text-brand-muted" />
             </a>
             <a
               href="#contacto"
@@ -178,7 +148,7 @@ export const Header: React.FC<HeaderProps> = ({
                 setMobileMenuOpen(false);
                 onOpenInquiry();
               }}
-              className="w-full h-11 rounded-md bg-brand-ink text-white text-xs font-semibold tracking-wide flex items-center justify-center gap-2 shadow-sm"
+              className="garam-glass-button garam-glass-button--primary flex h-11 w-full items-center justify-center gap-2 rounded-full text-xs font-semibold tracking-wide text-white"
             >
               <MessageSquarePlus className="w-4 h-4" />
               <span>Reunión Técnica de Factibilidad</span>
@@ -189,7 +159,7 @@ export const Header: React.FC<HeaderProps> = ({
                 setMobileMenuOpen(false);
                 onToggleAiConsultant();
               }}
-              className="w-full h-11 rounded-md bg-brand-paper text-brand-ink text-xs font-semibold tracking-wide flex items-center justify-center gap-2"
+              className="garam-glass-button garam-glass-button--quiet flex h-11 w-full items-center justify-center gap-2 rounded-full text-xs font-semibold tracking-wide text-brand-ink"
             >
               <Sparkles className="w-4 h-4 text-brand-copper" />
               <span>Consultar con Asesor Virtual</span>

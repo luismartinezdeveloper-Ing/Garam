@@ -4,8 +4,6 @@ import { HeroSection } from './components/HeroSection';
 import { CorporateProfile } from './components/CorporateProfile';
 import { ServicesSection } from './components/ServicesSection';
 import { ProjectsCatalog } from './components/ProjectsCatalog';
-import { ConstructionEstimator } from './components/ConstructionEstimator';
-import { BrandIdentitySection } from './components/BrandIdentitySection';
 import { Footer } from './components/Footer';
 import { ProjectDetailModal } from './components/ProjectDetailModal';
 import { InquiryModal } from './components/InquiryModal';
@@ -55,12 +53,6 @@ export default function App() {
   const handleSelectServiceForInquiry = (serviceTitle: string) => {
     dismissAllModals();
     setSelectedServiceForInquiry(serviceTitle);
-    setIsInquiryOpen(true);
-  };
-
-  const handleEstimatorInquiry = (data: { service: string; area: string; location: string; timeline: string }) => {
-    dismissAllModals();
-    setSelectedServiceForInquiry(`${data.service} (${data.area} en ${data.location})`);
     setIsInquiryOpen(true);
   };
 
@@ -118,13 +110,6 @@ export default function App() {
           }}
         />
 
-        {/* Interactive Construction Estimator (Calculadora de Alcance y Metraje) */}
-        <ConstructionEstimator
-          onOpenInquiryWithData={handleEstimatorInquiry}
-        />
-
-        {/* Brand Identity & Vector Logo Showcase */}
-        <BrandIdentitySection />
       </main>
 
       {/* Footer */}

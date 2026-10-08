@@ -25,6 +25,114 @@ body {
   color: #25225a;
 }
 
+@keyframes garam-logo-enter {
+  0% {
+    opacity: 0;
+    clip-path: inset(0 100% 0 0);
+    transform: translateX(-14px);
+  }
+  62% {
+    opacity: 1;
+    clip-path: inset(0 0 0 0);
+    transform: translateX(0);
+  }
+  78% {
+    transform: translateX(2px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes garam-logo-line-enter {
+  0% {
+    transform: scaleX(0);
+    transform-origin: left;
+    opacity: 0;
+  }
+  45% {
+    transform: scaleX(0);
+    opacity: 1;
+  }
+  100% {
+    transform: scaleX(1);
+    transform-origin: left;
+    opacity: 1;
+  }
+}
+
+.garam-header-logo {
+  position: relative;
+  isolation: isolate;
+  will-change: clip-path, opacity, transform;
+  animation: garam-logo-enter 1050ms 120ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.garam-header-logo::after {
+  position: absolute;
+  bottom: -3px;
+  left: 1px;
+  width: 42%;
+  height: 1px;
+  content: '';
+  background: linear-gradient(90deg, rgba(214, 178, 141, 0.95), transparent);
+  transform-origin: left;
+  animation: garam-logo-line-enter 900ms 420ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.garam-header-logo:focus-visible {
+  outline: 2px solid rgba(214, 178, 141, 0.9);
+  outline-offset: 5px;
+}
+
+.garam-glass-header {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+  background: linear-gradient(180deg, rgba(30, 27, 83, 0.78), rgba(37, 34, 90, 0.44));
+  box-shadow: 0 12px 34px rgba(12, 10, 45, 0.16), inset 0 -1px rgba(255, 255, 255, 0.12);
+  -webkit-backdrop-filter: saturate(155%) blur(20px);
+  backdrop-filter: saturate(155%) blur(20px);
+}
+
+.garam-glass-button {
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  box-shadow: 0 5px 14px rgba(37, 34, 90, 0.08), inset 0 1px rgba(255, 255, 255, 0.62);
+  -webkit-backdrop-filter: saturate(145%) blur(14px);
+  backdrop-filter: saturate(145%) blur(14px);
+}
+
+.garam-glass-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 9px 20px rgba(37, 34, 90, 0.13), inset 0 1px rgba(255, 255, 255, 0.82);
+}
+
+.garam-glass-button--quiet {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.garam-glass-button--quiet:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.garam-glass-button--primary {
+  border-color: rgba(255, 255, 255, 0.24);
+  background: linear-gradient(135deg, rgba(78, 70, 150, 0.88), rgba(37, 34, 90, 0.74));
+  box-shadow: 0 8px 20px rgba(12, 10, 45, 0.24), inset 0 1px rgba(255, 255, 255, 0.26);
+}
+
+.garam-glass-button--primary:hover {
+  background: linear-gradient(135deg, rgba(96, 86, 174, 0.92), rgba(48, 45, 112, 0.82));
+}
+
+.garam-glass-mobile-menu {
+  border-top: 1px solid rgba(255, 255, 255, 0.58);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.68);
+  background: rgba(246, 243, 237, 0.76);
+  box-shadow: 0 16px 32px rgba(37, 34, 90, 0.08);
+  -webkit-backdrop-filter: saturate(150%) blur(18px);
+  backdrop-filter: saturate(150%) blur(18px);
+}
+
 ::selection {
   background-color: #8b5e3c;
   color: #ffffff;
@@ -47,6 +155,168 @@ body {
     animation-iteration-count: 1 !important;
     scroll-behavior: auto !important;
     transition-duration: 0.01ms !important;
+  }
+}
+
+@keyframes garam-film-photo-reveal {
+  0%,
+  16% {
+    clip-path: inset(0 100% 0 0);
+    opacity: 0.04;
+    transform: scale(1.055);
+  }
+
+  24% {
+    clip-path: inset(0 93% 0 0);
+    opacity: 0.96;
+  }
+
+  70%,
+  84% {
+    clip-path: inset(0);
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  94%,
+  100% {
+    clip-path: inset(0);
+    opacity: 0;
+    transform: scale(1);
+  }
+}
+
+@keyframes garam-blueprint-opacity {
+  0%,
+  16% {
+    opacity: 0.9;
+  }
+
+  24% {
+    opacity: 0.84;
+  }
+
+  70% {
+    opacity: 0.3;
+  }
+
+  84% {
+    opacity: 0.2;
+  }
+
+  94% {
+    opacity: 0.9;
+  }
+
+  100% {
+    opacity: 0.9;
+  }
+}
+
+@keyframes garam-blueprint-draw {
+  0% {
+    stroke-dashoffset: 0.72;
+  }
+
+  31%,
+  78% {
+    stroke-dashoffset: 0;
+  }
+
+  92%,
+  100% {
+    stroke-dashoffset: 1;
+  }
+}
+
+@keyframes garam-film-scan {
+  0%,
+  16% {
+    left: -2%;
+    opacity: 0;
+  }
+
+  24% {
+    left: 4%;
+    opacity: 0.85;
+  }
+
+  68% {
+    left: 100%;
+    opacity: 0.72;
+  }
+
+  76%,
+  100% {
+    left: 104%;
+    opacity: 0;
+  }
+}
+
+.hero-film__grid {
+  background-color: #25225a;
+  background-image:
+    linear-gradient(rgba(214, 178, 141, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(214, 178, 141, 0.1) 1px, transparent 1px),
+    radial-gradient(ellipse at 73% 48%, rgba(65, 79, 134, 0.55), transparent 66%);
+  background-size: 64px 64px, 64px 64px, 100% 100%;
+}
+
+.hero-film__photo {
+  animation: garam-film-photo-reveal 18s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+  will-change: clip-path, opacity, transform;
+}
+
+.hero-film__blueprint {
+  animation: garam-blueprint-opacity 18s ease-in-out infinite;
+}
+
+.hero-film__blueprint path {
+  fill: none;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: garam-blueprint-draw 18s cubic-bezier(0.33, 1, 0.68, 1) infinite;
+}
+
+.hero-film__scanner {
+  position: absolute;
+  top: -4%;
+  bottom: -4%;
+  left: -2%;
+  z-index: 1;
+  width: 1px;
+  background: linear-gradient(transparent, rgba(214, 178, 141, 0.95) 20%, rgba(255, 248, 236, 0.95) 50%, rgba(214, 178, 141, 0.95) 80%, transparent);
+  box-shadow: 0 0 26px 3px rgba(214, 178, 141, 0.28);
+  animation: garam-film-scan 18s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .garam-header-logo,
+  .garam-header-logo::after {
+    animation: none;
+  }
+
+  .hero-film__photo {
+    clip-path: none;
+    opacity: 1;
+    transform: none;
+    animation: none !important;
+    will-change: auto;
+  }
+
+  .hero-film__blueprint {
+    opacity: 0;
+    animation: none !important;
+  }
+
+  .hero-film__blueprint path {
+    stroke-dashoffset: 0;
+    animation: none !important;
+  }
+
+  .hero-film__scanner {
+    display: none;
+    animation: none !important;
   }
 }
 

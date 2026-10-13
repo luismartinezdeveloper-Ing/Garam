@@ -88,6 +88,9 @@ export const AiConsultantDrawer: React.FC<AiConsultantDrawerProps> = ({
       });
 
       const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.error || 'El asesor técnico no está disponible.');
+      }
       const assistantTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
       if (data.reply) {
@@ -129,6 +132,9 @@ export const AiConsultantDrawer: React.FC<AiConsultantDrawerProps> = ({
       />
 
       <div
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="consultant-drawer-title"
         onClick={(e) => e.stopPropagation()}
         className="fixed inset-y-0 right-0 z-10 w-full max-w-lg bg-white border-l border-[#e5e5ea] shadow-2xl flex flex-col justify-between animate-slide-left cursor-default"
       >
@@ -142,7 +148,7 @@ export const AiConsultantDrawer: React.FC<AiConsultantDrawerProps> = ({
             <div className="text-[10px] font-semibold tracking-wider text-[#6e6e73] uppercase">
               GARAM ASESOR TÉCNICO
             </div>
-            <h2 className="text-base font-bold text-[#25225a]">Inteligencia de Portafolio</h2>
+            <h2 id="consultant-drawer-title" className="text-base font-bold text-[#25225a]">Inteligencia de Portafolio</h2>
           </div>
         </div>
 

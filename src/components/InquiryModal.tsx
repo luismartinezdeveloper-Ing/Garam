@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { InquiryFormData, ProjectCategory } from '../types/portfolio';
 import { X, Send, CheckCircle2, MessageCircle, ShieldCheck, Calendar, MapPin, Building, ArrowRight } from 'lucide-react';
+import { leadSchema } from '../shared/apiContracts';
 
 interface InquiryModalProps {
   isOpen: boolean;
@@ -69,10 +70,20 @@ export const InquiryModal: React.FC<InquiryModalProps> = ({
 
     try {
       const payload = {
-        ...formData,
-        clientRole,
-        submittedAt: new Date().toISOString(),
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        service: formData.projectType,
+        area: formData.estimatedArea,
+        location: formData.location,
+        timeline: formData.targetTimeline,
+        comments: [formData.company, clientRole, formData.budgetRange, formData.comments].filter(Boolean).join(' · '),
+        consent: true,
       };
+      const parsedPayload = leadSchema.safeParse(payload);
+      if (!parsedPayload.success) {
+        throw new Error('Revisa los datos de contacto y los campos obligatorios antes de continuar.');
+      }
 
       const response = await fetch('/api/estimate', {
         method: 'POST',
@@ -81,15 +92,13 @@ export const InquiryModal: React.FC<InquiryModalProps> = ({
       });
 
       const data = await response.json();
-      if (data.success) {
-        setSuccessRef(data.referenceId || `GARAM-${Math.floor(100000 + Math.random() * 900000)}`);
-      } else {
-        setSuccessRef(`GARAM-${Math.floor(100000 + Math.random() * 900000)}`);
+      if (!response.ok || !data.success || !data.referenceId) {
+        throw new Error(data.error || 'No pudimos registrar la solicitud.');
       }
+      setSuccessRef(data.referenceId);
     } catch (err) {
       console.error('Error submitting inquiry:', err);
-      // Fallback offline reference
-      setSuccessRef(`GARAM-${Math.floor(100000 + Math.random() * 900000)}`);
+      setSubmitError(err instanceof Error ? err.message : 'No pudimos registrar la solicitud. Intente nuevamente.');
     } finally {
       setSubmitting(false);
     }
@@ -107,6 +116,9 @@ export const InquiryModal: React.FC<InquiryModalProps> = ({
       className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/60 backdrop-blur-md overflow-y-auto animate-fade-in font-sans cursor-pointer"
     >
       <div
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="inquiry-modal-title"
         onClick={(e) => e.stopPropagation()}
         className="relative w-full max-w-2xl bg-white rounded-2xl overflow-hidden my-auto cursor-default shadow-2xl border border-brand-stone max-h-[92vh] flex flex-col"
       >
@@ -118,7 +130,7 @@ export const InquiryModal: React.FC<InquiryModalProps> = ({
               <ShieldCheck className="w-4 h-4 text-emerald-600" />
               <span>GARAM CONSTRUCTORES · CANAL CONFIDENCIAL VIP</span>
             </div>
-            <h2 className="font-editorial text-3xl font-normal tracking-tight text-brand-ink sm:text-4xl">
+            <h2 id="inquiry-modal-title" className="font-editorial text-3xl font-normal tracking-tight text-brand-ink sm:text-4xl">
               Reunión Técnica de Factibilidad
             </h2>
             <p className="text-xs sm:text-sm text-brand-muted font-normal leading-relaxed">
@@ -304,11 +316,10 @@ export const InquiryModal: React.FC<InquiryModalProps> = ({
 
                 <div className="space-y-1.5">
                   <label className="font-semibold text-brand-ink text-xs">
-                    Teléfono / WhatsApp *
+                    Teléfono / WhatsApp (opcional si indica correo)
                   </label>
                   <input
                     type="tel"
-                    required
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                     placeholder="+58 (412) 000-0000"
@@ -318,11 +329,10 @@ export const InquiryModal: React.FC<InquiryModalProps> = ({
 
                 <div className="space-y-1.5">
                   <label className="font-semibold text-brand-ink text-xs">
-                    Correo Electrónico *
+                    Correo Electrónico (opcional si indica teléfono)
                   </label>
                   <input
                     type="email"
-                    required
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     placeholder="contacto@empresa.com"
@@ -344,6 +354,16 @@ export const InquiryModal: React.FC<InquiryModalProps> = ({
                   className="w-full p-3 bg-brand-paper rounded-xl border border-transparent focus:border-brand-ink focus:bg-white focus-visible:ring-2 focus-visible:ring-brand-copper/40 text-xs text-brand-ink focus:outline-none transition-all"
                 />
               </div>
+
+              <label className="flex items-start gap-3 text-[11px] leading-relaxed text-brand-muted">
+                <input
+                  type="checkbox"
+                  required
+                  aria-label="Acepto el contacto de GARAM sobre esta solicitud"
+                  className="mt-0.5 size-4 accent-brand-ink"
+                />
+                <span>Acepto que GARAM use estos datos para contactarme sobre esta solicitud de factibilidad.</span>
+              </label>
 
               {/* Bottom Actions */}
               <div className="pt-4 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-brand-stone">

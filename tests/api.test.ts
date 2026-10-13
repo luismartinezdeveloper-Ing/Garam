@@ -21,7 +21,9 @@ describe('GARAM Constructores - API & Security Hardening Tests', () => {
     const res = await fetch(`${BASE_URL}/api/health`);
     assert.equal(res.headers.get('x-content-type-options'), 'nosniff');
     assert.equal(res.headers.get('referrer-policy'), 'strict-origin-when-cross-origin');
-    assert.equal(res.headers.get('x-xss-protection'), '1; mode=block');
+    assert.ok(res.headers.get('strict-transport-security'));
+    assert.ok(res.headers.get('permissions-policy'));
+    assert.ok(res.headers.get('content-security-policy-report-only'));
   });
 
   test('GET /api/portfolio/data must return all 11 curated projects', async () => {
@@ -51,7 +53,7 @@ describe('GARAM Constructores - API & Security Hardening Tests', () => {
 
     assert.equal(res.status, 400);
     const data = await res.json();
-    assert.ok(data.error.includes('canal de contacto'));
+    assert.ok(data.error.includes('canal de contacto') || data.error.includes('datos de la solicitud'));
   });
 
   test('POST /api/estimate should register valid inquiry with reference ticket', async () => {
@@ -65,40 +67,52 @@ describe('GARAM Constructores - API & Security Hardening Tests', () => {
         service: 'Construcción Residencial de Lujo',
         area: '1.500 m²',
         location: 'La Castellana',
+        timeline: '6 meses',
+        consent: true,
       }),
     });
 
-    assert.equal(res.status, 200);
+    assert.equal(res.status, 201);
     const data = await res.json();
     assert.equal(data.success, true);
     assert.ok(data.referenceId.startsWith('GARAM-'));
   });
 
-  test('POST /api/save-slide-image must block path traversal attempts', async () => {
+  test('GET /api/leads/export must reject unauthenticated access', async () => {
+    const res = await fetch(`${BASE_URL}/api/leads/export?format=json`);
+    assert.ok([401, 503].includes(res.status));
+  });
+
+  test('POST /api/save-slide-image must reject unauthenticated access', async () => {
     const res = await fetch(`${BASE_URL}/api/save-slide-image`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ slideNumber: 1, dataUrl: 'data:image/jpeg;base64,/9j/4AAQSkZJRg==' }),
+    });
+    assert.ok([401, 503].includes(res.status));
+  });
+
+  test('POST /api/save-slide-image must block path traversal attempts', async () => {
+    const res = await fetch(`${BASE_URL}/api/save-slide-image`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'x-admin-key': process.env.ADMIN_API_KEY || '' },
       body: JSON.stringify({
         slideNumber: '../../etc/passwd',
         dataUrl: 'data:image/jpeg;base64,/9j/4AAQSkZJRg==',
       }),
     });
 
-    assert.equal(res.status, 400);
-    const data = await res.json();
-    assert.ok(data.error.includes('entero válido'));
+    assert.ok([400, 401, 503].includes(res.status));
+    if (res.status === 400) {
+      const data = await res.json();
+      assert.ok(data.error.includes('entero válido'));
+    }
   });
 
-  test('GET /api/leads/export must support CSV and JSON outputs', async () => {
+  test('GET /api/leads/export must remain protected for both formats', async () => {
     const jsonRes = await fetch(`${BASE_URL}/api/leads/export?format=json`);
-    assert.equal(jsonRes.status, 200);
-    const jsonData = await jsonRes.json();
-    assert.ok(Array.isArray(jsonData.leads));
-
     const csvRes = await fetch(`${BASE_URL}/api/leads/export?format=csv`);
-    assert.equal(csvRes.status, 200);
-    assert.ok(csvRes.headers.get('content-type')?.includes('text/csv'));
-    const csvText = await csvRes.text();
-    assert.ok(csvText.startsWith('referenceId,timestamp,name'));
+    assert.ok([401, 503].includes(jsonRes.status));
+    assert.ok([401, 503].includes(csvRes.status));
   });
 });

@@ -1,4 +1,5 @@
 import express from 'express';
+import crypto from 'node:crypto';
 import { createServer } from 'node:http';
 import { GoogleGenAI } from '@google/genai';
 import dotenv from 'dotenv';
@@ -6,6 +7,10 @@ import path from 'path';
 import fs from 'fs';
 import { fileURLToPath } from 'url';
 import rateLimit from 'express-rate-limit';
+import { z } from 'zod';
+import { count, desc, eq } from 'drizzle-orm';
+import { db, pool } from './src/server/db/index.js';
+import { leadExportColumns, leads } from './src/server/db/schema.js';
 import { COMPANY_INFO, PROJECTS, SERVICES, VALUE_PILLARS, SLIDES_DATA } from './src/data/portfolioData.js';
 
 dotenv.config();
@@ -15,15 +20,18 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 const PORT = Number(process.env.PORT) || 3000;
+app.set('trust proxy', 1);
 
-// Security & DoS Mitigation: Limit request body to 15MB
-app.use(express.json({ limit: '15mb' }));
+// Security & DoS Mitigation: Keep JSON bodies small; uploads use a dedicated limit.
+app.use(express.json({ limit: '2mb' }));
 
 // Security Headers Middleware (MIME Sniffing & XSS protection, safe for preview iframe)
 app.use((_req, res, next) => {
   res.setHeader('X-Content-Type-Options', 'nosniff');
   res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
-  res.setHeader('X-XSS-Protection', '1; mode=block');
+  res.setHeader('Strict-Transport-Security', 'max-age=63072000');
+  res.setHeader('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
+  res.setHeader('Content-Security-Policy-Report-Only', "default-src 'self'; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; connect-src 'self' https:; font-src 'self' data: https:");
   next();
 });
 
@@ -58,18 +66,37 @@ const uploadLimiter = rateLimit({
   legacyHeaders: false,
 });
 
-// Ensure data persistence directory exists
-const DATA_DIR = path.resolve(__dirname, 'data');
-if (!fs.existsSync(DATA_DIR)) {
-  fs.mkdirSync(DATA_DIR, { recursive: true });
-}
-const LEADS_FILE = path.join(DATA_DIR, 'leads.json');
-if (!fs.existsSync(LEADS_FILE)) {
-  fs.writeFileSync(LEADS_FILE, JSON.stringify([], null, 2), 'utf-8');
-}
+const leadSchema = z.object({
+  name: z.string().trim().min(2).max(120),
+  email: z.string().trim().email().max(254).optional().or(z.literal('')),
+  phone: z.string().trim().min(7).max(32).optional().or(z.literal('')),
+  service: z.string().trim().min(2).max(120),
+  area: z.string().trim().min(1).max(40),
+  location: z.string().trim().min(2).max(160),
+  timeline: z.string().trim().min(2).max(80),
+  comments: z.string().trim().max(2000).optional().default(''),
+  consent: z.literal(true),
+}).refine((value) => Boolean(value.email || value.phone), {
+  message: 'Se requiere correo electrónico o teléfono',
+  path: ['email'],
+});
+
+const chatSchema = z.object({
+  message: z.string().trim().min(1).max(2000),
+  conversationHistory: z.array(z.unknown()).max(20).default([]),
+});
+
+const adminKey = process.env.ADMIN_API_KEY;
+const requireAdmin = (req: express.Request, res: express.Response, next: express.NextFunction) => {
+  if (!adminKey) return res.status(503).json({ error: 'La administración no está configurada' });
+  if (req.header('x-admin-key') !== adminKey) return res.status(401).json({ error: 'No autorizado' });
+  next();
+};
+
+const getClientIp = (req: express.Request) => req.ip?.replace(/^::ffff:/, '') ?? null;
 
 // 1. Hardened Save Slide Image Endpoint (Defends against Path Traversal & Arbitrary File Overwrites)
-app.post('/api/save-slide-image', uploadLimiter, async (req, res) => {
+app.post('/api/save-slide-image', uploadLimiter, requireAdmin, async (req, res) => {
   try {
     const { slideNumber, dataUrl } = req.body;
     if (!slideNumber || !dataUrl) {
@@ -136,48 +163,37 @@ app.get('/api/slides-status', async (req, res) => {
 });
 
 // Health & Observability Check Endpoint for Cloud Run / Container Probes
-app.get('/api/health', (_req, res) => {
+app.get('/api/health', async (_req, res) => {
   const mem = process.memoryUsage();
-  let leadsCount = 0;
   try {
-    if (fs.existsSync(LEADS_FILE)) {
-      const leads = JSON.parse(fs.readFileSync(LEADS_FILE, 'utf-8') || '[]');
-      leadsCount = Array.isArray(leads) ? leads.length : 0;
-    }
-  } catch {}
-
-  res.json({
-    status: 'healthy',
-    timestamp: new Date().toISOString(),
-    uptimeSeconds: Math.floor(process.uptime()),
-    service: 'GARAM Constructores API',
-    version: '2026.1.0',
-    geminiConfigured: Boolean(process.env.GEMINI_API_KEY),
-    metrics: {
-      memoryRssMb: Math.round(mem.rss / (1024 * 1024)),
-      memoryHeapUsedMb: Math.round(mem.heapUsed / (1024 * 1024)),
-      persistedLeadsCount: leadsCount,
-    },
-  });
+    const [{ count: leadsCount }] = await db.select({ count: count(leads.id) }).from(leads);
+    return res.json({
+      status: 'healthy',
+      timestamp: new Date().toISOString(),
+      uptimeSeconds: Math.floor(process.uptime()),
+      service: 'GARAM Constructores API',
+      version: '2026.1.0',
+      geminiConfigured: Boolean(process.env.GEMINI_API_KEY),
+      databaseConfigured: Boolean(process.env.DATABASE_URL),
+      metrics: { memoryRssMb: Math.round(mem.rss / (1024 * 1024)), memoryHeapUsedMb: Math.round(mem.heapUsed / (1024 * 1024)), persistedLeadsCount: leadsCount },
+    });
+  } catch {
+    return res.status(503).json({ status: 'degraded', databaseConfigured: Boolean(process.env.DATABASE_URL) });
+  }
 });
 
 // Commercial Leads Export Endpoint (CSV or JSON)
-app.get('/api/leads/export', (req, res) => {
+app.get('/api/leads/export', requireAdmin, async (req, res) => {
   try {
-    if (!fs.existsSync(LEADS_FILE)) {
-      return res.status(200).json({ count: 0, leads: [] });
-    }
-    const raw = fs.readFileSync(LEADS_FILE, 'utf-8');
-    const leads = JSON.parse(raw || '[]');
     const format = req.query.format === 'csv' ? 'csv' : 'json';
+    const rows = await db.select().from(leads).orderBy(desc(leads.createdAt));
 
     if (format === 'csv') {
-      const headers = ['referenceId', 'timestamp', 'name', 'email', 'phone', 'service', 'area', 'location', 'timeline', 'comments'];
-      const csvRows = [headers.join(',')];
-      for (const lead of (Array.isArray(leads) ? leads : [])) {
-        const row = headers.map(h => {
-          const val = lead[h] !== undefined ? String(lead[h]).replace(/"/g, '""') : '';
-          return `"${val}"`;
+      const csvRows = [leadExportColumns.join(',')];
+      for (const lead of rows) {
+        const row = leadExportColumns.map((column) => {
+          const value = lead[column] instanceof Date ? lead[column].toISOString() : lead[column] ?? '';
+          return `"${String(value).replace(/"/g, '""')}"`;
         });
         csvRows.push(row.join(','));
       }
@@ -186,10 +202,10 @@ app.get('/api/leads/export', (req, res) => {
       return res.status(200).send(csvRows.join('\n'));
     }
 
-    res.json({ count: leads.length, leads });
+    return res.json({ count: rows.length, leads: rows });
   } catch (err) {
     console.error('Error exporting leads:', err);
-    res.status(500).json({ error: 'Error al exportar prospectos' });
+    return res.status(500).json({ error: 'Error al exportar prospectos' });
   }
 });
 
@@ -281,55 +297,40 @@ Proporciona respuestas claras, estructuradas y detalladas. Si el usuario consult
   }
 });
 
-// Estimate Request Endpoint (Hardened with Validation & Persistent Storage)
-app.post('/api/estimate', estimateLimiter, (req, res) => {
+// Estimate Request Endpoint with strict validation and atomic Postgres persistence.
+app.post('/api/estimate', estimateLimiter, async (req, res) => {
+  const parsed = leadSchema.safeParse(req.body);
+  if (!parsed.success) {
+    return res.status(400).json({ error: 'Los datos de la solicitud no son válidos', fields: parsed.error.flatten().fieldErrors });
+  }
+
+  const referenceId = `GARAM-${crypto.randomUUID().slice(0, 8).toUpperCase()}`;
+  const inquiry = parsed.data;
+
   try {
-    const inquiry = req.body;
-    
-    // Strict input validation for critical commercial leads
-    if (!inquiry || typeof inquiry !== 'object') {
-      return res.status(400).json({ error: 'Datos de solicitud inválidos' });
-    }
-
-    const { name, email, phone } = inquiry;
-    if (!name || (!email && !phone)) {
-      return res.status(400).json({
-        error: 'Debe proporcionar al menos su nombre y un canal de contacto (correo electrónico o teléfono).',
-      });
-    }
-
-    const referenceId = `GARAM-${Date.now().toString().slice(-6)}`;
-    const timestamp = new Date().toISOString();
-
-    const leadRecord = {
+    await db.insert(leads).values({
       referenceId,
-      timestamp,
-      clientIp: req.ip || req.socket.remoteAddress,
-      ...inquiry,
-    };
+      clientIp: getClientIp(req),
+      name: inquiry.name,
+      email: inquiry.email || null,
+      phone: inquiry.phone || null,
+      service: inquiry.service,
+      area: inquiry.area,
+      location: inquiry.location,
+      timeline: inquiry.timeline,
+      comments: inquiry.comments || null,
+    });
 
-    // Safe append to leads file
-    try {
-      const currentLeadsRaw = fs.readFileSync(LEADS_FILE, 'utf-8');
-      const currentLeads = JSON.parse(currentLeadsRaw || '[]');
-      currentLeads.push(leadRecord);
-      fs.writeFileSync(LEADS_FILE, JSON.stringify(currentLeads, null, 2), 'utf-8');
-    } catch (fsErr) {
-      console.error('Error persisting lead to disk:', fsErr);
-      // Non-fatal fallback: continue so user gets their reference ticket
-    }
-
-    console.log(`[LEAD REGISTRADO] Referencia: ${referenceId} - Cliente: ${name} (${email || phone})`);
-
-    res.json({
+    console.log(`[LEAD REGISTRADO] Referencia: ${referenceId}`);
+    return res.status(201).json({
       success: true,
       message: 'Solicitud registrada exitosamente. Un gerente de proyectos GARAM se comunicará en breve con su propuesta formal.',
       referenceId,
-      timestamp,
+      timestamp: new Date().toISOString(),
     });
-  } catch (err) {
-    console.error('Error processing estimate request:', err);
-    res.status(500).json({ error: 'Error procesando solicitud de cotización' });
+  } catch (error) {
+    console.error('Error persisting lead:', error);
+    return res.status(500).json({ error: 'No pudimos guardar la solicitud. Intente nuevamente.' });
   }
 });
 

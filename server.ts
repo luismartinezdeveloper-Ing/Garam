@@ -277,7 +277,7 @@ Proporciona respuestas claras, estructuradas y detalladas. Si el usuario consult
 app.post('/api/estimate', estimateLimiter, async (req, res) => {
   const parsed = leadSchema.safeParse(req.body);
   if (!parsed.success) {
-    return res.status(400).json({ error: 'Los datos de la solicitud no son válidos', fields: parsed.error.flatten().fieldErrors });
+    return res.status(400).json({ error: 'Los datos de la solicitud no son válidos; se requiere un canal de contacto válido.', fields: parsed.error.flatten().fieldErrors });
   }
 
   const referenceId = `GARAM-${crypto.randomUUID().slice(0, 8).toUpperCase()}`;

@@ -7,10 +7,10 @@ import path from 'path';
 import fs from 'fs';
 import { fileURLToPath } from 'url';
 import rateLimit from 'express-rate-limit';
-import { z } from 'zod';
-import { count, desc, eq } from 'drizzle-orm';
-import { db, pool } from './src/server/db/index.js';
+import { count, desc } from 'drizzle-orm';
+import { db } from './src/server/db/index.js';
 import { leadExportColumns, leads } from './src/server/db/schema.js';
+import { chatSchema, leadSchema } from './src/shared/apiContracts.js';
 import { COMPANY_INFO, PROJECTS, SERVICES, VALUE_PILLARS, SLIDES_DATA } from './src/data/portfolioData.js';
 
 dotenv.config();
@@ -64,26 +64,6 @@ const uploadLimiter = rateLimit({
   max: 40,
   standardHeaders: true,
   legacyHeaders: false,
-});
-
-const leadSchema = z.object({
-  name: z.string().trim().min(2).max(120),
-  email: z.string().trim().email().max(254).optional().or(z.literal('')),
-  phone: z.string().trim().min(7).max(32).optional().or(z.literal('')),
-  service: z.string().trim().min(2).max(120),
-  area: z.string().trim().min(1).max(40),
-  location: z.string().trim().min(2).max(160),
-  timeline: z.string().trim().min(2).max(80),
-  comments: z.string().trim().max(2000).optional().default(''),
-  consent: z.literal(true),
-}).refine((value) => Boolean(value.email || value.phone), {
-  message: 'Se requiere correo electrónico o teléfono',
-  path: ['email'],
-});
-
-const chatSchema = z.object({
-  message: z.string().trim().min(1).max(2000),
-  conversationHistory: z.array(z.unknown()).max(20).default([]),
 });
 
 const adminKey = process.env.ADMIN_API_KEY;
@@ -224,15 +204,11 @@ app.get('/api/portfolio/data', (req, res) => {
 // Gemini AI Architectural Advisor Endpoint (Hardened with Rate Limiting & Error Sanitization)
 app.post('/api/chat/consultant', aiConsultantLimiter, async (req, res) => {
   try {
-    const { message, conversationHistory = [] } = req.body;
-
-    if (!message || typeof message !== 'string' || message.trim().length === 0) {
-      return res.status(400).json({ error: 'El mensaje es requerido y debe ser texto válido.' });
+    const parsed = chatSchema.safeParse(req.body);
+    if (!parsed.success) {
+      return res.status(400).json({ error: 'El mensaje no es válido', fields: parsed.error.flatten().fieldErrors });
     }
-
-    if (message.length > 2000) {
-      return res.status(400).json({ error: 'El mensaje excede la longitud máxima permitida (2000 caracteres).' });
-    }
+    const { message, conversationHistory } = parsed.data;
 
     const apiKey = process.env.GEMINI_API_KEY;
     if (!apiKey) {

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { InquiryFormData, ProjectCategory } from '../types/portfolio';
 import { X, Send, CheckCircle2, MessageCircle, ShieldCheck, Calendar, MapPin, Building, ArrowRight } from 'lucide-react';
+import { leadSchema } from '../shared/apiContracts';
 
 interface InquiryModalProps {
   isOpen: boolean;
@@ -79,6 +80,10 @@ export const InquiryModal: React.FC<InquiryModalProps> = ({
         comments: [formData.company, clientRole, formData.budgetRange, formData.comments].filter(Boolean).join(' · '),
         consent: true,
       };
+      const parsedPayload = leadSchema.safeParse(payload);
+      if (!parsedPayload.success) {
+        throw new Error('Revisa los datos de contacto y los campos obligatorios antes de continuar.');
+      }
 
       const response = await fetch('/api/estimate', {
         method: 'POST',
@@ -111,6 +116,9 @@ export const InquiryModal: React.FC<InquiryModalProps> = ({
       className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/60 backdrop-blur-md overflow-y-auto animate-fade-in font-sans cursor-pointer"
     >
       <div
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="inquiry-modal-title"
         onClick={(e) => e.stopPropagation()}
         className="relative w-full max-w-2xl bg-white rounded-2xl overflow-hidden my-auto cursor-default shadow-2xl border border-brand-stone max-h-[92vh] flex flex-col"
       >
@@ -122,7 +130,7 @@ export const InquiryModal: React.FC<InquiryModalProps> = ({
               <ShieldCheck className="w-4 h-4 text-emerald-600" />
               <span>GARAM CONSTRUCTORES · CANAL CONFIDENCIAL VIP</span>
             </div>
-            <h2 className="font-editorial text-3xl font-normal tracking-tight text-brand-ink sm:text-4xl">
+            <h2 id="inquiry-modal-title" className="font-editorial text-3xl font-normal tracking-tight text-brand-ink sm:text-4xl">
               Reunión Técnica de Factibilidad
             </h2>
             <p className="text-xs sm:text-sm text-brand-muted font-normal leading-relaxed">
